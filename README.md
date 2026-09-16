@@ -112,6 +112,10 @@ scripts/            Catalog validation script
 .github/workflows/  GitHub Pages deployment workflow
 ```
 
+## Working on
+1. Responsive mobile view as currently it is pc view only.
+2. Fixing bugs if they exists
+
 ## License
 
 This project is intended for learning and interview preparation. Add a license before distributing or accepting external contributions.
