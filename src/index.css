@@ -215,3 +215,36 @@ code, pre, .font-mono {
 .sql-table tr:hover td {
   background-color: rgba(56, 189, 248, 0.04);
 }
+
+@media (max-width: 767px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  .split-pane-mobile {
+    height: auto;
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .split-pane-mobile > .split-pane-primary,
+  .split-pane-mobile > .split-pane-secondary {
+    width: 100% !important;
+  }
+
+  .split-pane-mobile > .split-pane-primary {
+    height: 26rem !important;
+    min-height: 26rem;
+  }
+
+  .split-pane-mobile > .split-pane-secondary {
+    height: 42rem !important;
+    min-height: 42rem;
+  }
+
+  .split-pane-mobile > .split-pane-divider {
+    display: none;
+  }
+}

@@ -114,29 +114,29 @@ export function ProblemList({
   const remainingCount = Math.max(0, totalCount - solvedCount);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fade-in">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-5 sm:space-y-8 animate-fade-in">
       
       {/* Hero Overview & Progress Cards */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         
         {/* Banner Card */}
-        <div className="lg:col-span-2 glass-card rounded-2xl p-6 sm:p-8 relative overflow-hidden bg-gradient-to-r from-slate-900 via-slate-900/90 to-cyan-950/40 border border-slate-800">
+        <div className="lg:col-span-2 glass-card rounded-2xl p-5 sm:p-8 relative overflow-hidden bg-gradient-to-r from-slate-900 via-slate-900/90 to-cyan-950/40 border border-slate-800">
           <div className="relative z-10 space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Job-Ready Interview Curriculum</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
               Master Modern Programming, Algorithms & SQL
             </h1>
             <p className="text-sm text-slate-400 max-w-xl leading-relaxed">
-              Curated bank of 185+ real-world interview challenges with zero-latency browser execution, instant test evaluation, and offline storage.
+              Curated interview challenges with browser execution, instant test evaluation, and offline storage.
             </p>
 
             <div className="pt-2 flex flex-wrap items-center gap-3">
               <button
                 onClick={pickRandomProblem}
-                className="btn-primary px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2"
+                className="btn-primary w-full sm:w-auto justify-center px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2"
               >
                 <Shuffle className="w-4 h-4" />
                 Pick Random Challenge
@@ -150,7 +150,7 @@ export function ProblemList({
         </div>
 
         {/* Stats Progress Card */}
-        <div className="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col justify-between space-y-4">
+        <div className="glass-card rounded-2xl p-5 sm:p-6 border border-slate-800 flex flex-col justify-between space-y-4">
           <div>
             <span className="text-xs font-semibold uppercase text-slate-400 tracking-wider">
               Preparation Progress
@@ -214,7 +214,7 @@ export function ProblemList({
       <div className="space-y-4">
         
         {/* Track Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+        <div className="flex items-center gap-2 overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0 pb-1 scrollbar-none">
           {TRACKS.map((t) => {
             const active = currentTrack === t.id;
             return (
@@ -242,10 +242,10 @@ export function ProblemList({
         </div>
 
         {/* Secondary Filter Controls */}
-        <div className="glass-card rounded-2xl p-4 border border-slate-800 flex flex-wrap items-center justify-between gap-4">
+        <div className="glass-card rounded-2xl p-3 sm:p-4 border border-slate-800 flex flex-col items-stretch justify-between gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
           
           {/* Search Box */}
-          <div className="relative flex-1 min-w-[240px]">
+          <div className="relative w-full flex-1 min-w-0 sm:min-w-[240px]">
             <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
@@ -257,13 +257,13 @@ export function ProblemList({
           </div>
 
           {/* Filter Dropdowns */}
-          <div className="flex flex-wrap items-center gap-2.5">
+          <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center sm:gap-2.5">
             
             {/* Difficulty Selector */}
             <select
               value={selectedDifficulty}
               onChange={(e) => setSelectedDifficulty(e.target.value)}
-              className="px-3 py-2 bg-slate-950/70 border border-slate-800 rounded-xl text-xs text-slate-300 focus:outline-none focus:border-cyan-500 cursor-pointer"
+              className="w-full sm:w-auto px-3 py-2 bg-slate-950/70 border border-slate-800 rounded-xl text-xs text-slate-300 focus:outline-none focus:border-cyan-500 cursor-pointer"
             >
               <option value="All">All Difficulties</option>
               <option value="Easy">Easy</option>
@@ -274,7 +274,7 @@ export function ProblemList({
             <select
               value={selectedTopic}
               onChange={(e) => setSelectedTopic(e.target.value)}
-              className="px-3 py-2 bg-slate-950/70 border border-slate-800 rounded-xl text-xs text-slate-300 focus:outline-none focus:border-cyan-500 cursor-pointer max-w-[170px]"
+              className="w-full sm:w-auto px-3 py-2 bg-slate-950/70 border border-slate-800 rounded-xl text-xs text-slate-300 focus:outline-none focus:border-cyan-500 cursor-pointer"
             >
               {TOPIC_TAGS.map((top) => (
                 <option key={top} value={top}>{top}</option>
@@ -285,7 +285,7 @@ export function ProblemList({
             <select
               value={filterSolved}
               onChange={(e) => setFilterSolved(e.target.value)}
-              className="px-3 py-2 bg-slate-950/70 border border-slate-800 rounded-xl text-xs text-slate-300 focus:outline-none focus:border-cyan-500 cursor-pointer"
+              className="w-full sm:w-auto px-3 py-2 bg-slate-950/70 border border-slate-800 rounded-xl text-xs text-slate-300 focus:outline-none focus:border-cyan-500 cursor-pointer"
             >
               <option value="all">All Status</option>
               <option value="solved">Solved Only</option>
@@ -295,7 +295,7 @@ export function ProblemList({
             {/* Starred Button Toggle */}
             <button
               onClick={() => setShowStarredOnly(!showStarredOnly)}
-              className={`p-2 rounded-xl border text-xs transition-colors flex items-center gap-1.5 ${
+              className={`justify-center p-2 rounded-xl border text-xs transition-colors flex items-center gap-1.5 ${
                 showStarredOnly
                   ? 'bg-amber-500/20 border-amber-500/40 text-amber-400'
                   : 'bg-slate-950/70 border-slate-800 text-slate-400 hover:text-slate-200'
@@ -311,7 +311,7 @@ export function ProblemList({
                 const next = sortBy === 'default' ? 'title' : sortBy === 'title' ? 'difficulty' : 'default';
                 setSortBy(next);
               }}
-              className="px-3 py-2 bg-slate-950/70 border border-slate-800 rounded-xl text-xs text-slate-300 hover:text-slate-100 flex items-center gap-1.5"
+              className="justify-center px-3 py-2 bg-slate-950/70 border border-slate-800 rounded-xl text-xs text-slate-300 hover:text-slate-100 flex items-center gap-1.5"
               title={`Sorting by: ${sortBy}`}
             >
               <ArrowUpDown className="w-3.5 h-3.5 text-slate-500" />
@@ -345,10 +345,10 @@ export function ProblemList({
                 <div
                   key={q.id}
                   onClick={() => onSelectProblem(q)}
-                  className="glass-card rounded-xl p-4 border border-slate-800/80 hover:border-cyan-500/40 cursor-pointer flex items-center justify-between gap-4 group transition-all"
+                  className="glass-card rounded-xl p-3.5 sm:p-4 border border-slate-800/80 hover:border-cyan-500/40 cursor-pointer flex items-center justify-between gap-2 sm:gap-4 group transition-all"
                 >
                   {/* Left info */}
-                  <div className="flex items-center gap-3.5 min-w-0">
+                  <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
                     {/* Solved Status Indicator */}
                     <div className="flex-shrink-0">
                       {isSolved ? (
@@ -361,7 +361,7 @@ export function ProblemList({
                     {/* Title and meta */}
                     <div className="min-w-0 space-y-1">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-xs text-slate-500 font-mono">
+                          <span className="hidden sm:inline text-xs text-slate-500 font-mono">
                           #{q.id}
                         </span>
                         <h3 className="text-sm font-semibold text-slate-100 group-hover:text-cyan-300 transition-colors truncate">
@@ -387,7 +387,7 @@ export function ProblemList({
                         )}
                       </div>
 
-                      <p className="text-xs text-slate-400 line-clamp-1">
+                      <p className="hidden sm:block text-xs text-slate-400 line-clamp-1">
                         {q.description}
                       </p>
                     </div>

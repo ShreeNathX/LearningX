@@ -53,22 +53,22 @@ export function Navbar({
 
   return (
     <header className="sticky top-0 z-40 w-full glass-panel border-b border-slate-800/80 bg-slate-950/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
         
         {/* Brand Logo */}
         <div 
           onClick={onNavigateHome}
-          className="flex items-center gap-2.5 cursor-pointer select-none group"
+          className="flex min-w-0 items-center gap-2 sm:gap-2.5 cursor-pointer select-none group"
         >
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
             <Sparkles className="w-5 h-5 text-white" />
           </div>
-          <div>
+          <div className="min-w-0">
             <div className="flex items-center gap-1.5">
-              <span className="text-lg font-bold tracking-tight text-white group-hover:text-cyan-400 transition-colors">
+              <span className="text-base sm:text-lg font-bold tracking-tight text-white group-hover:text-cyan-400 transition-colors">
                 Learning<span className="text-cyan-400">X</span>
               </span>
-              <span className="text-[10px] uppercase font-semibold px-1.5 py-0.5 rounded bg-cyan-950/60 text-cyan-400 border border-cyan-800/50">
+              <span className="hidden sm:inline text-[10px] uppercase font-semibold px-1.5 py-0.5 rounded bg-cyan-950/60 text-cyan-400 border border-cyan-800/50">
                 PRO
               </span>
             </div>
@@ -106,12 +106,12 @@ export function Navbar({
         </nav>
 
         {/* User Stats & Utilities */}
-        <div className="flex items-center gap-3">
+        <div className="flex flex-shrink-0 items-center gap-1.5 sm:gap-3">
           
           {/* Daily Streak */}
           <div 
             title={`${streak} day streak`}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold"
+            className="hidden min-[390px]:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold"
           >
             <Flame className="w-4 h-4 text-amber-500 animate-pulse" />
             <span>{streak}</span>
@@ -125,7 +125,7 @@ export function Navbar({
           >
             <CheckCircle2 className="w-4 h-4 text-emerald-500" />
             <span>{solvedCount}</span>
-            <span className="text-emerald-300/60 font-normal">/ {totalQuestions}</span>
+            <span className="hidden sm:inline text-emerald-300/60 font-normal">/ {totalQuestions}</span>
           </div>
 
           {/* Backup / Restore Modal Trigger */}
@@ -143,7 +143,7 @@ export function Navbar({
       {/* Backup / Restore Modal */}
       {showDataModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-md w-full shadow-2xl space-y-4">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 max-w-md w-full shadow-2xl space-y-4 max-h-[calc(100vh-2rem)] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-slate-800">
               <h3 className="text-base font-semibold text-slate-100 flex items-center gap-2">
                 <Download className="w-4 h-4 text-cyan-400" />

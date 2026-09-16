@@ -261,13 +261,13 @@ export function ProblemArena({
   const editorLanguage = isSql ? 'sql' : 'python';
 
   return (
-    <div className="h-[calc(100vh-4rem)] flex flex-col bg-slate-950 overflow-hidden select-none">
+    <div className="min-h-[calc(100vh-4rem)] md:h-[calc(100vh-4rem)] flex flex-col bg-slate-950 overflow-visible md:overflow-hidden select-none">
       
       {/* Top Problem Sub-bar */}
-      <div className="h-12 px-4 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between gap-3 flex-shrink-0">
+      <div className="h-12 px-3 sm:px-4 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between gap-2 sm:gap-3 flex-shrink-0">
         
         {/* Left: Back & Problem Nav */}
-        <div className="flex items-center gap-3">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <button
             onClick={onBack}
             className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
@@ -277,10 +277,10 @@ export function ProblemArena({
           </button>
 
           <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-500 font-mono">
+            <span className="hidden sm:inline text-xs text-slate-500 font-mono">
               #{problem.id}
             </span>
-            <h2 className="text-sm font-bold text-slate-100 truncate max-w-xs sm:max-w-md">
+            <h2 className="text-sm font-bold text-slate-100 truncate max-w-[10rem] sm:max-w-md">
               {problem.title}
             </h2>
 
@@ -294,7 +294,7 @@ export function ProblemArena({
 
             {/* Difficulty */}
             <span
-              className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
+              className={`hidden sm:inline text-[10px] font-semibold px-2 py-0.5 rounded-full ${
                 problem.difficulty === 'Easy'
                   ? 'badge-emerald'
                   : 'badge-amber'
@@ -306,7 +306,7 @@ export function ProblemArena({
         </div>
 
         {/* Right: Prev / Next & Bookmark */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-shrink-0 items-center gap-0.5 sm:gap-2">
           {/* Bookmark Button */}
           <button
             onClick={() => {
@@ -353,15 +353,16 @@ export function ProblemArena({
           defaultSplit={42}
           minSplit={25}
           maxSplit={65}
+          stackOnMobile
           left={
             /* LEFT PANE: Description, Hints, Solution, Notes */
             <div className="h-full flex flex-col bg-slate-900/60 border-r border-slate-800 text-slate-200 overflow-hidden select-text">
               
               {/* Tab Navigation */}
-              <div className="flex items-center gap-1 p-2 bg-slate-900/90 border-b border-slate-800 text-xs select-none">
+              <div className="flex items-center gap-1 overflow-x-auto p-2 bg-slate-900/90 border-b border-slate-800 text-xs select-none">
                 <button
                   onClick={() => setActiveLeftTab('desc')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors font-medium ${
+                  className={`flex flex-shrink-0 items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors font-medium ${
                     activeLeftTab === 'desc'
                       ? 'bg-slate-800 text-cyan-400'
                       : 'text-slate-400 hover:text-slate-200'
@@ -373,7 +374,7 @@ export function ProblemArena({
 
                 <button
                   onClick={() => setActiveLeftTab('hints')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors font-medium ${
+                  className={`flex flex-shrink-0 items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors font-medium ${
                     activeLeftTab === 'hints'
                       ? 'bg-slate-800 text-amber-400'
                       : 'text-slate-400 hover:text-slate-200'
@@ -385,7 +386,7 @@ export function ProblemArena({
 
                 <button
                   onClick={() => setActiveLeftTab('solution')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors font-medium ${
+                  className={`flex flex-shrink-0 items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors font-medium ${
                     activeLeftTab === 'solution'
                       ? 'bg-slate-800 text-emerald-400'
                       : 'text-slate-400 hover:text-slate-200'
@@ -397,7 +398,7 @@ export function ProblemArena({
 
                 <button
                   onClick={() => setActiveLeftTab('notes')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors font-medium ${
+                  className={`flex flex-shrink-0 items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors font-medium ${
                     activeLeftTab === 'notes'
                       ? 'bg-slate-800 text-purple-400'
                       : 'text-slate-400 hover:text-slate-200'
@@ -409,7 +410,7 @@ export function ProblemArena({
               </div>
 
               {/* Tab Contents */}
-              <div className="flex-1 overflow-y-auto p-5 space-y-6">
+              <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-6">
                 
                 {/* 1. DESCRIPTION TAB */}
                 {activeLeftTab === 'desc' && (
@@ -610,17 +611,18 @@ export function ProblemArena({
           }
           right={
             /* RIGHT PANE: Code Editor & Console */
-            <SplitPane
-              direction="vertical"
-              defaultSplit={62}
-              minSplit={30}
-              maxSplit={85}
+            <div className="h-[42rem] md:h-full">
+              <SplitPane
+                direction="vertical"
+                defaultSplit={58}
+                minSplit={30}
+                maxSplit={80}
               left={
                 /* Editor Panel */
                 <div className="h-full flex flex-col bg-slate-950 overflow-hidden">
                   
                   {/* Editor Top Bar */}
-                  <div className="h-10 px-3 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between gap-2 flex-shrink-0 select-none">
+                  <div className="h-10 px-2 sm:px-3 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between gap-1 sm:gap-2 flex-shrink-0 select-none">
                     
                     {/* Language Selector */}
                     <div className="flex items-center gap-1">
@@ -638,7 +640,7 @@ export function ProblemArena({
                     </div>
 
                     {/* Action Buttons: Reset, Run, Submit */}
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1 sm:gap-2">
                       <button
                         onClick={handleResetCode}
                         className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
@@ -651,7 +653,7 @@ export function ProblemArena({
                       <button
                         onClick={() => executeCode(false)}
                         disabled={isRunning}
-                        className="btn-secondary px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 disabled:opacity-50"
+                        className="btn-secondary px-2 sm:px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 disabled:opacity-50"
                         title="Run the first two public test cases (Ctrl + Enter)"
                       >
                         <Play className="w-3 h-3 text-cyan-400 fill-cyan-400" />
@@ -663,7 +665,7 @@ export function ProblemArena({
                       <button
                         onClick={() => executeCode(true)}
                         disabled={isRunning}
-                        className="btn-success px-3.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 disabled:opacity-50"
+                        className="btn-success px-2 sm:px-3.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 disabled:opacity-50"
                         title="Verify against the full public test suite and mark solved"
                       >
                         <Send className="w-3 h-3" />
@@ -725,7 +727,8 @@ export function ProblemArena({
                   onTabChange={setConsoleTab}
                 />
               }
-            />
+              />
+            </div>
           }
         />
       </div>

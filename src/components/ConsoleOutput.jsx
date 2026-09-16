@@ -40,11 +40,11 @@ export function ConsoleOutput({
     <div className="h-full flex flex-col bg-slate-950/95 overflow-hidden text-slate-200">
       
       {/* Console Tab Header */}
-      <div className="flex items-center justify-between px-3 py-2 bg-slate-900/90 border-b border-slate-800 text-xs select-none">
-        <div className="flex items-center gap-1.5">
+      <div className="flex items-center justify-between gap-2 px-2 sm:px-3 py-2 bg-slate-900/90 border-b border-slate-800 text-xs select-none">
+        <div className="flex min-w-0 items-center gap-0.5 sm:gap-1.5 overflow-x-auto">
           <button
             onClick={() => setActiveTab('tests')}
-            className={`px-2.5 py-1 rounded-md transition-colors flex items-center gap-1.5 ${
+            className={`flex-shrink-0 px-2 sm:px-2.5 py-1 rounded-md transition-colors flex items-center gap-1.5 ${
               activeTab === 'tests'
                 ? 'bg-slate-800 text-cyan-400 font-medium'
                 : 'text-slate-400 hover:text-slate-200'
@@ -57,39 +57,42 @@ export function ConsoleOutput({
             ) : (
               <Terminal className="w-3.5 h-3.5" />
             )}
-            Test Results
+            <span className="hidden sm:inline">Test Results</span>
+            <span className="sm:hidden">Tests</span>
           </button>
 
           <button
             onClick={() => setActiveTab('stdout')}
-            className={`px-2.5 py-1 rounded-md transition-colors flex items-center gap-1.5 ${
+            className={`flex-shrink-0 px-2 sm:px-2.5 py-1 rounded-md transition-colors flex items-center gap-1.5 ${
               activeTab === 'stdout'
                 ? 'bg-slate-800 text-cyan-400 font-medium'
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
             <Terminal className="w-3.5 h-3.5" />
-            Stdout / Logs
+            <span className="hidden sm:inline">Stdout / Logs</span>
+            <span className="sm:hidden">Logs</span>
           </button>
 
           {isSql && (
             <button
               onClick={() => setActiveTab('schema')}
-              className={`px-2.5 py-1 rounded-md transition-colors flex items-center gap-1.5 ${
+              className={`flex-shrink-0 px-2 sm:px-2.5 py-1 rounded-md transition-colors flex items-center gap-1.5 ${
                 activeTab === 'schema'
                   ? 'bg-slate-800 text-amber-400 font-medium'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
               <Database className="w-3.5 h-3.5" />
-              Database Tables
+              <span className="hidden sm:inline">Database Tables</span>
+              <span className="sm:hidden">Tables</span>
             </button>
           )}
         </div>
 
         {/* Execution Time Pill */}
         {result.executionTimeMs !== undefined && (
-          <div className="flex items-center gap-1 text-[11px] text-slate-400 font-mono">
+          <div className="hidden min-[390px]:flex flex-shrink-0 items-center gap-1 text-[11px] text-slate-400 font-mono">
             <Clock className="w-3 h-3 text-slate-500" />
             <span>{result.executionTimeMs} ms</span>
           </div>
@@ -97,7 +100,7 @@ export function ConsoleOutput({
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 overflow-y-auto p-4">
+      <div className="flex-1 overflow-y-auto p-3 sm:p-4">
         
         {/* Error Banner */}
         {hasError && (
@@ -117,7 +120,7 @@ export function ConsoleOutput({
           <div className="space-y-4">
             
             {/* Status Summary */}
-            <div className="flex items-center justify-between p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
+            <div className="flex flex-col items-start gap-1.5 p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-2">
                 {isPassed ? (
                   <span className="flex items-center gap-1.5 text-xs font-semibold text-emerald-400">
@@ -156,7 +159,7 @@ export function ConsoleOutput({
                       {result.userResult.values.length} rows
                     </span>
                   </div>
-                  <div className="border border-slate-800 rounded-xl overflow-hidden bg-slate-900/50">
+                  <div className="border border-slate-800 rounded-xl overflow-x-auto bg-slate-900/50">
                     {result.userResult.columns.length > 0 ? (
                       <table className="sql-table">
                         <thead>
@@ -193,7 +196,7 @@ export function ConsoleOutput({
                         {result.expectedResult.values.length} rows
                       </span>
                     </div>
-                    <div className="border border-slate-800/60 rounded-xl overflow-hidden bg-slate-900/30 opacity-90">
+                    <div className="border border-slate-800/60 rounded-xl overflow-x-auto bg-slate-900/30 opacity-90">
                       <table className="sql-table">
                         <thead>
                           <tr>

@@ -6,7 +6,8 @@ export function SplitPane({
   direction = 'horizontal', // 'horizontal' | 'vertical'
   defaultSplit = 50,
   minSplit = 20,
-  maxSplit = 80
+  maxSplit = 80,
+  stackOnMobile = false
 }) {
   const [split, setSplit] = useState(defaultSplit);
   const [isDragging, setIsDragging] = useState(false);
@@ -53,14 +54,14 @@ export function SplitPane({
   return (
     <div 
       ref={containerRef}
-      className={`w-full h-full flex ${direction === 'horizontal' ? 'flex-row' : 'flex-col'} overflow-hidden`}
+      className={`split-pane w-full h-full flex ${direction === 'horizontal' ? 'flex-row' : 'flex-col'} overflow-hidden ${stackOnMobile ? 'split-pane-mobile' : ''}`}
     >
       {/* Primary Pane */}
       <div 
         style={{ 
           [direction === 'horizontal' ? 'width' : 'height']: `${split}%` 
         }} 
-        className="overflow-hidden flex flex-col"
+        className="split-pane-primary overflow-hidden flex flex-col"
       >
         {left}
       </div>
@@ -68,7 +69,7 @@ export function SplitPane({
       {/* Resizer Divider Bar */}
       <div
         onMouseDown={() => setIsDragging(true)}
-        className={`relative flex items-center justify-center bg-slate-900 hover:bg-cyan-500/50 transition-colors z-20 select-none ${
+        className={`split-pane-divider relative flex items-center justify-center bg-slate-900 hover:bg-cyan-500/50 transition-colors z-20 select-none ${
           direction === 'horizontal'
             ? 'w-1.5 cursor-col-resize hover:w-1.5 border-x border-slate-800'
             : 'h-1.5 cursor-row-resize hover:h-1.5 border-y border-slate-800'
@@ -84,7 +85,7 @@ export function SplitPane({
         style={{ 
           [direction === 'horizontal' ? 'width' : 'height']: `${100 - split}%` 
         }} 
-        className="overflow-hidden flex flex-col"
+        className="split-pane-secondary overflow-hidden flex flex-col"
       >
         {right}
       </div>
