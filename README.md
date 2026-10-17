@@ -2,6 +2,8 @@
 
 LearningX is a frontend-only coding interview practice platform for Python, data structures and algorithms, and SQL. It provides browser-based execution, immediate test feedback, saved progress, and a structured challenge catalog that can be deployed on GitHub Pages.
 
+[https://ShreeNathX.github.io/LearningX/](https://ShreeNathX.github.io/LearningX/)
+
 ## Features
 
 - 205 curated Python, DSA, and SQL challenges
