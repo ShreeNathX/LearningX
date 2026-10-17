@@ -216,15 +216,21 @@ code, pre, .font-mono {
   background-color: rgba(56, 189, 248, 0.04);
 }
 
-@media (max-width: 767px) {
-  input,
-  select,
-  textarea {
-    font-size: 16px;
+@media (max-width: 1023px) {
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  body {
+    overflow-y: auto;
+    overscroll-behavior-y: auto;
   }
 
   .split-pane-mobile {
-    height: auto;
+    height: auto !important;
+    min-height: 0;
     flex-direction: column;
     overflow: visible;
   }
@@ -232,19 +238,99 @@ code, pre, .font-mono {
   .split-pane-mobile > .split-pane-primary,
   .split-pane-mobile > .split-pane-secondary {
     width: 100% !important;
+    height: auto !important;
+    flex: none;
+    overflow: visible;
   }
 
   .split-pane-mobile > .split-pane-primary {
-    height: 26rem !important;
-    min-height: 26rem;
+    min-height: 0;
   }
 
   .split-pane-mobile > .split-pane-secondary {
-    height: 42rem !important;
-    min-height: 42rem;
+    min-height: 0;
   }
 
   .split-pane-mobile > .split-pane-divider {
     display: none;
+  }
+
+  .problem-arena-mobile {
+    height: auto;
+    min-height: calc(100vh - 4rem);
+    min-height: calc(100dvh - 4rem);
+    overflow: visible;
+  }
+
+  .problem-arena-mobile > .problem-arena-body {
+    flex: none;
+    overflow: visible;
+  }
+
+  .problem-arena-mobile .problem-description-panel {
+    height: auto;
+    overflow: visible;
+  }
+
+  .problem-arena-mobile .problem-tab-content {
+    flex: none;
+    overflow: visible;
+  }
+
+  .problem-arena-mobile .problem-editor-panel {
+    height: 26rem;
+  }
+
+  .problem-arena-mobile .problem-code-workspace {
+    height: auto;
+    overflow: visible;
+  }
+
+  .problem-arena-mobile .problem-console-panel {
+    height: 24rem;
+  }
+
+  .problem-arena-mobile .problem-arena-body .split-pane:not(.split-pane-mobile) {
+    height: auto;
+    overflow: visible;
+  }
+
+  .problem-arena-mobile .problem-arena-body .split-pane:not(.split-pane-mobile) > .split-pane-primary {
+    height: 26rem !important;
+    flex: none;
+  }
+
+  .problem-arena-mobile .problem-arena-body .split-pane:not(.split-pane-mobile) > .split-pane-secondary {
+    height: 24rem !important;
+    flex: none;
+  }
+}
+
+@media (max-width: 767px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  .problem-arena-mobile > :first-child {
+    min-height: 3rem;
+    height: auto;
+  }
+
+  .problem-arena-mobile .problem-tab-content {
+    padding: 1rem;
+  }
+
+  .problem-arena-mobile .problem-editor-panel {
+    height: clamp(20rem, 58dvh, 30rem);
+  }
+
+  .problem-arena-mobile .problem-arena-body .split-pane:not(.split-pane-mobile) > .split-pane-primary {
+    height: clamp(20rem, 58dvh, 30rem) !important;
+  }
+
+  .problem-arena-mobile .problem-arena-body .split-pane:not(.split-pane-mobile) > .split-pane-secondary {
+    height: clamp(18rem, 45dvh, 26rem) !important;
   }
 }

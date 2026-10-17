@@ -22,7 +22,7 @@ import {
 } from 'lucide-react';
 import { ConsoleOutput } from '../components/ConsoleOutput';
 import { SplitPane } from '../components/SplitPane';
-import { runPythonCode } from '../services/pyodideRunner';
+import { cancelPythonRuns, runPythonCode } from '../services/pyodideRunner';
 import { executeSqlQuery, getTablesData } from '../services/sqlRunner';
 import { 
   markProblemSolved, 
@@ -64,10 +64,20 @@ export function ProblemArena({
   const [copiedSolution, setCopiedSolution] = useState(false);
   const [schemaTables, setSchemaTables] = useState([]);
   const [consoleTab, setConsoleTab] = useState('tests');
+  const [storageWarning, setStorageWarning] = useState('');
 
   const editorRef = useRef(null);
   const monacoRef = useRef(null);
   const indentValidationDisposeRef = useRef(null);
+  const isMountedRef = useRef(true);
+
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+      cancelPythonRuns();
+    };
+  }, []);
 
   // Current problem indexing
   const currentIndex = allProblems.findIndex((p) => p.id === problem.id);
@@ -106,15 +116,22 @@ export function ProblemArena({
 
     // If SQL, preload schema tables
     if (isSql && problem.schemaSql) {
+      let active = true;
       getTablesData(problem.schemaSql)
-        .then(setSchemaTables)
+        .then((tables) => {
+          if (active) setSchemaTables(tables);
+        })
         .catch((err) => {
           console.warn('Failed to preload SQL schema tables:', err);
-          setSchemaTables([]);
+          if (active) setSchemaTables([]);
         });
+      return () => {
+        active = false;
+      };
     } else {
       setSchemaTables([]);
     }
+    return undefined;
   }, [problem.id, activeLanguage, isSql]);
 
   const setupPythonIndentValidation = () => {
@@ -149,7 +166,11 @@ export function ProblemArena({
   const handleCodeChange = (newVal) => {
     const val = newVal || '';
     setCode(val);
-    saveCode(problem.id, isSql ? 'sql' : activeLanguage, val);
+    if (!saveCode(problem.id, isSql ? 'sql' : activeLanguage, val)) {
+      setStorageWarning('Your changes are open but could not be saved in this browser. Copy your code or notes before closing this page.');
+    } else if (storageWarning) {
+      setStorageWarning('');
+    }
   };
 
   const handleResetCode = () => {
@@ -158,14 +179,20 @@ export function ProblemArena({
         ? problem.starterCode || ''
         : problem.starterCode?.[activeLanguage] || problem.starterCode?.python || '';
       setCode(defaultCode);
-      saveCode(problem.id, isSql ? 'sql' : activeLanguage, defaultCode);
+      if (!saveCode(problem.id, isSql ? 'sql' : activeLanguage, defaultCode)) {
+        setStorageWarning('Your changes are open but could not be saved in this browser. Copy your code or notes before closing this page.');
+      }
     }
   };
 
   const handleNoteChange = (e) => {
     const val = e.target.value;
     setUserNote(val);
-    saveNote(problem.id, val);
+    if (!saveNote(problem.id, val)) {
+      setStorageWarning('Your changes are open but could not be saved in this browser. Copy your code or notes before closing this page.');
+    } else if (storageWarning) {
+      setStorageWarning('');
+    }
   };
 
   // Run or Submit Code
@@ -198,7 +225,7 @@ export function ProblemArena({
     try {
       let res;
       if (isSql) {
-        res = await executeSqlQuery(code, problem.schemaSql, problem.expectedQuery);
+        res = await executeSqlQuery(code, problem.schemaSql, problem.expectedQuery, problem.resultQuery);
         res.testScope = 'Full SQL check';
       } else {
         // Run provides fast feedback; Submit verifies every stored case.
@@ -208,26 +235,32 @@ export function ProblemArena({
         res.testScope = isSubmit ? 'Full suite' : `Quick check: ${testsToRun.length} case${testsToRun.length === 1 ? '' : 's'}`;
       }
 
+      if (!isMountedRef.current) return;
+
       setExecutionResult(res);
 
       const passed = isSql ? res.passed : res.allPassed;
 
       if (passed && isSubmit) {
         // Mark solved & trigger confetti
-        markProblemSolved(problem.id, activeLanguage);
+        if (!markProblemSolved(problem.id, activeLanguage)) {
+          setStorageWarning('Your solution passed, but progress could not be saved in this browser.');
+        }
         onUserDataUpdate();
         triggerConfetti();
       }
     } catch (err) {
-      setExecutionResult({
-        success: false,
-        allPassed: false,
-        results: [],
-        stdout: '',
-        error: err.message || String(err)
-      });
+      if (isMountedRef.current) {
+        setExecutionResult({
+          success: false,
+          allPassed: false,
+          results: [],
+          stdout: '',
+          error: err.message || String(err)
+        });
+      }
     } finally {
-      setIsRunning(false);
+      if (isMountedRef.current) setIsRunning(false);
     }
   };
 
@@ -261,7 +294,7 @@ export function ProblemArena({
   const editorLanguage = isSql ? 'sql' : 'python';
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] md:h-[calc(100vh-4rem)] flex flex-col bg-slate-950 overflow-visible md:overflow-hidden select-none">
+    <div className="problem-arena-mobile min-h-[calc(100vh-4rem)] lg:h-[calc(100vh-4rem)] flex flex-col bg-slate-950 overflow-visible lg:overflow-hidden select-none">
       
       {/* Top Problem Sub-bar */}
       <div className="h-12 px-3 sm:px-4 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between gap-2 sm:gap-3 flex-shrink-0">
@@ -276,11 +309,11 @@ export function ProblemArena({
             <ArrowLeft className="w-4 h-4" />
           </button>
 
-          <div className="flex items-center gap-2">
+          <div className="flex min-w-0 items-center gap-2">
             <span className="hidden sm:inline text-xs text-slate-500 font-mono">
               #{problem.id}
             </span>
-            <h2 className="text-sm font-bold text-slate-100 truncate max-w-[10rem] sm:max-w-md">
+            <h2 className="min-w-0 text-sm font-bold text-slate-100 truncate max-w-[10rem] sm:max-w-md">
               {problem.title}
             </h2>
 
@@ -310,7 +343,9 @@ export function ProblemArena({
           {/* Bookmark Button */}
           <button
             onClick={() => {
-              toggleStarProblem(problem.id);
+              if (!toggleStarProblem(problem.id)) {
+                setStorageWarning('Your bookmark could not be saved in this browser.');
+              }
               onUserDataUpdate();
             }}
             className={`p-1.5 rounded-lg transition-colors ${
@@ -346,8 +381,14 @@ export function ProblemArena({
 
       </div>
 
+      {storageWarning && (
+        <div role="alert" className="px-3 sm:px-4 py-2 bg-amber-950/70 border-b border-amber-800/50 text-amber-200 text-xs">
+          {storageWarning}
+        </div>
+      )}
+
       {/* Main Split Body */}
-      <div className="flex-1 overflow-hidden">
+      <div className="problem-arena-body flex-1 overflow-hidden">
         <SplitPane
           direction="horizontal"
           defaultSplit={42}
@@ -356,7 +397,7 @@ export function ProblemArena({
           stackOnMobile
           left={
             /* LEFT PANE: Description, Hints, Solution, Notes */
-            <div className="h-full flex flex-col bg-slate-900/60 border-r border-slate-800 text-slate-200 overflow-hidden select-text">
+            <div className="problem-description-panel h-full flex flex-col bg-slate-900/60 border-r border-slate-800 text-slate-200 overflow-hidden select-text">
               
               {/* Tab Navigation */}
               <div className="flex items-center gap-1 overflow-x-auto p-2 bg-slate-900/90 border-b border-slate-800 text-xs select-none">
@@ -410,7 +451,7 @@ export function ProblemArena({
               </div>
 
               {/* Tab Contents */}
-              <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-6">
+              <div className="problem-tab-content flex-1 overflow-y-auto p-4 sm:p-5 space-y-6">
                 
                 {/* 1. DESCRIPTION TAB */}
                 {activeLeftTab === 'desc' && (
@@ -466,7 +507,7 @@ export function ProblemArena({
                               <span className="text-slate-500 font-sans block text-[10px] uppercase font-semibold">
                                 Output:
                               </span>
-                              <span className="text-emerald-400 whitespace-pre-wrap">{ex.output}</span>
+                              {isSql ? <SqlExampleOutput output={ex.output} /> : <span className="text-emerald-400 whitespace-pre-wrap">{ex.output}</span>}
                             </div>
                             {ex.explanation && (
                               <div>
@@ -611,7 +652,7 @@ export function ProblemArena({
           }
           right={
             /* RIGHT PANE: Code Editor & Console */
-            <div className="h-[42rem] md:h-full">
+            <div className="problem-code-workspace h-[42rem] md:h-full">
               <SplitPane
                 direction="vertical"
                 defaultSplit={58}
@@ -619,7 +660,7 @@ export function ProblemArena({
                 maxSplit={80}
               left={
                 /* Editor Panel */
-                <div className="h-full flex flex-col bg-slate-950 overflow-hidden">
+                <div className="problem-editor-panel h-full flex flex-col bg-slate-950 overflow-hidden">
                   
                   {/* Editor Top Bar */}
                   <div className="h-10 px-2 sm:px-3 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between gap-1 sm:gap-2 flex-shrink-0 select-none">
@@ -738,3 +779,27 @@ export function ProblemArena({
 }
 
 export default ProblemArena;
+
+function SqlExampleOutput({ output }) {
+  const lines = String(output || '').split(/\r?\n/).filter((line) => line.trim());
+  if (lines.length === 0 || !lines[0].includes('|')) {
+    return <pre className="text-emerald-400 whitespace-pre-wrap font-mono">{output}</pre>;
+  }
+
+  const columns = lines[0].split('|').map((cell) => cell.trim());
+  const rows = lines.slice(1).map((line) => line.split('|').map((cell) => cell.trim()));
+  return (
+    <div className="overflow-x-auto rounded-lg border border-slate-800 bg-slate-950/80">
+      <table className="sql-table min-w-max" aria-label="Example query output">
+        <thead><tr>{columns.map((column, index) => <th key={`${column}-${index}`}>{column}</th>)}</tr></thead>
+        <tbody>
+          {rows.map((row, rowIndex) => row.length === 1 && columns.length > 1 ? (
+            <tr key={rowIndex}><td colSpan={columns.length} style={{ color: '#34d399' }}>{row[0]}</td></tr>
+          ) : (
+            <tr key={rowIndex}>{columns.map((_, columnIndex) => <td key={columnIndex} style={{ color: '#34d399' }}>{row[columnIndex] ?? ''}</td>)}</tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}

@@ -1,5 +1,13 @@
 let worker = null;
 let requestId = 0;
+let executionQueue = Promise.resolve();
+let runGeneration = 0;
+let cancelActiveRun = null;
+
+export function cancelPythonRuns() {
+  runGeneration += 1;
+  cancelActiveRun?.();
+}
 
 function getWorker() {
   if (worker) return worker;
@@ -14,9 +22,17 @@ function resetWorker() {
 }
 
 export async function runPythonCode(userCode, testCases, entryPoint = '') {
-  const startTime = performance.now();
-  if (!userCode?.trim()) return failure('Code editor is empty. Please implement your solution before running.', startTime);
+  if (!userCode?.trim()) return failure('Code editor is empty. Please implement your solution before running.', performance.now());
 
+  const generation = runGeneration;
+  const run = () => runQueuedPythonCode(userCode, testCases, entryPoint, performance.now(), generation);
+  const result = executionQueue.then(run, run);
+  executionQueue = result.then(() => undefined, () => undefined);
+  return result;
+}
+
+function runQueuedPythonCode(userCode, testCases, entryPoint, startTime, generation) {
+  if (generation !== runGeneration) return Promise.resolve(failure('Execution cancelled because the problem changed.', startTime));
   const id = ++requestId;
   const activeWorker = getWorker();
   return new Promise((resolve) => {
@@ -25,6 +41,8 @@ export async function runPythonCode(userCode, testCases, entryPoint = '') {
     const finish = (result, discardWorker = false) => {
       clearTimeout(timer);
       activeWorker.removeEventListener('message', onMessage);
+      activeWorker.removeEventListener('error', onError);
+      if (cancelActiveRun === cancel) cancelActiveRun = null;
       if (discardWorker) resetWorker();
       resolve(result);
     };
@@ -39,7 +57,12 @@ export async function runPythonCode(userCode, testCases, entryPoint = '') {
       }
     };
 
+    const onError = () => finish(failure('The Python worker stopped unexpectedly. Reload the page and try again.', startTime), true);
+    const cancel = () => finish(failure('Execution cancelled because the problem changed.', startTime), true);
+
     activeWorker.addEventListener('message', onMessage);
+    activeWorker.addEventListener('error', onError);
+    cancelActiveRun = cancel;
     activeWorker.postMessage({ id, userCode, testCases: testCases || [], entryPoint });
   });
 }

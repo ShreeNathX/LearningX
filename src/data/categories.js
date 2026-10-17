@@ -5,12 +5,13 @@ export const TRACKS = [
   { id: 'sql', name: 'SQL & Databases', icon: 'Database', color: '#fbbf24' },
 ];
 
-export const DIFFICULTIES = ['All', 'Easy', 'Medium'];
+export const DIFFICULTIES = ['All', 'Easy', 'Medium', 'Hard'];
 
 export const TOPIC_TAGS = [
   'All',
   'Strings',
   'Arrays',
+  'Sorting',
   'Math & Logic',
   'Hash Maps & Dicts',
   'Two Pointers',

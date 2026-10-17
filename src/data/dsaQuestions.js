@@ -10,6 +10,10 @@ export const dsaQuestions = [
       {
         "input": "[[2, 7, 11, 15], 9]",
         "output": "[0, 1]"
+      },
+      {
+        "input": "nums = [3, 2, 4], target = 6",
+        "output": "[1, 2]"
       }
     ],
     "constraints": [
@@ -82,6 +86,10 @@ export const dsaQuestions = [
       {
         "input": "[[7, 1, 5, 3, 6, 4]]",
         "output": "5"
+      },
+      {
+        "input": "prices = [7, 6, 4, 3, 1]",
+        "output": "0"
       }
     ],
     "constraints": [
@@ -137,6 +145,10 @@ export const dsaQuestions = [
       {
         "input": "[[1, 2, 3, 1]]",
         "output": "True"
+      },
+      {
+        "input": "nums = [1, 2, 3, 4]",
+        "output": "False"
       }
     ],
     "constraints": [
@@ -206,6 +218,10 @@ export const dsaQuestions = [
       {
         "input": "[[-2, 1, -3, 4, -1, 2, 1, -5, 4]]",
         "output": "6"
+      },
+      {
+        "input": "nums = [1]",
+        "output": "1"
       }
     ],
     "constraints": [
@@ -272,6 +288,10 @@ export const dsaQuestions = [
       {
         "input": "['anagram', 'nagaram']",
         "output": "True"
+      },
+      {
+        "input": "s = 'rat', t = 'car'",
+        "output": "False"
       }
     ],
     "constraints": [
@@ -316,6 +336,10 @@ export const dsaQuestions = [
       {
         "input": "[[-1, 0, 1, 2, -1, -4]]",
         "output": "[[-1, -1, 2], [-1, 0, 1]]"
+      },
+      {
+        "input": "nums = [0, 1, 1]",
+        "output": "[]"
       }
     ],
     "constraints": [
@@ -396,6 +420,10 @@ export const dsaQuestions = [
       {
         "input": "[[1, 8, 6, 2, 5, 4, 8, 3, 7]]",
         "output": "49"
+      },
+      {
+        "input": "height = [1, 1]",
+        "output": "1"
       }
     ],
     "constraints": [
@@ -451,6 +479,10 @@ export const dsaQuestions = [
       {
         "input": "['abcabcbb']",
         "output": "3"
+      },
+      {
+        "input": "s = 'bbbbb'",
+        "output": "1"
       }
     ],
     "constraints": [
@@ -499,6 +531,10 @@ export const dsaQuestions = [
       {
         "input": "['ABAB', 2]",
         "output": "4"
+      },
+      {
+        "input": "s = 'AABABBA', k = 1",
+        "output": "4"
       }
     ],
     "constraints": [
@@ -543,6 +579,10 @@ export const dsaQuestions = [
       {
         "input": "['ADOBECODEBANC', 'ABC']",
         "output": "BANC"
+      },
+      {
+        "input": "s = 'a', t = 'a'",
+        "output": "'a'"
       }
     ],
     "constraints": [
@@ -594,6 +634,10 @@ export const dsaQuestions = [
       {
         "input": "[[4, 5, 6, 7, 0, 1, 2], 0]",
         "output": "4"
+      },
+      {
+        "input": "nums = [4, 5, 6, 7, 0, 1, 2], target = 3",
+        "output": "-1"
       }
     ],
     "constraints": [
@@ -663,6 +707,10 @@ export const dsaQuestions = [
       {
         "input": "[[3, 4, 5, 1, 2]]",
         "output": "1"
+      },
+      {
+        "input": "nums = [4, 5, 6, 7, 0, 1, 2]",
+        "output": "0"
       }
     ],
     "constraints": [
@@ -730,6 +778,10 @@ export const dsaQuestions = [
       {
         "input": "[[-1, 0, 3, 5, 9, 12], 9]",
         "output": "4"
+      },
+      {
+        "input": "nums = [-1, 0, 3, 5, 9, 12], target = 2",
+        "output": "-1"
       }
     ],
     "constraints": [
@@ -788,6 +840,10 @@ export const dsaQuestions = [
       {
         "input": "[[1, 3, 5, 6], 5]",
         "output": "2"
+      },
+      {
+        "input": "nums = [1, 3, 5, 6], target = 2",
+        "output": "1"
       }
     ],
     "constraints": [
@@ -854,6 +910,10 @@ export const dsaQuestions = [
       {
         "input": "[[5, 7, 7, 8, 8, 10], 8]",
         "output": "[3, 4]"
+      },
+      {
+        "input": "nums = [5, 7, 7, 8, 8, 10], target = 6",
+        "output": "[-1, -1]"
       }
     ],
     "constraints": [
@@ -928,6 +988,10 @@ export const dsaQuestions = [
       {
         "input": "[[1, 2, 3, 4, 5]]",
         "output": "[5, 4, 3, 2, 1]"
+      },
+      {
+        "input": "values = [1, 2]",
+        "output": "[2, 1]"
       }
     ],
     "constraints": [
@@ -994,6 +1058,10 @@ export const dsaQuestions = [
       {
         "input": "[[1, 2, 4], [1, 3, 4]]",
         "output": "[1, 1, 2, 3, 4, 4]"
+      },
+      {
+        "input": "l1 = [], l2 = []",
+        "output": "[]"
       }
     ],
     "constraints": [
@@ -1064,6 +1132,10 @@ export const dsaQuestions = [
       {
         "input": "[[3, 2, 0, -4], 1]",
         "output": "True"
+      },
+      {
+        "input": "nodes = [1, 2], pos = 0",
+        "output": "True"
       }
     ],
     "constraints": [
@@ -1125,6 +1197,10 @@ export const dsaQuestions = [
       {
         "input": "[[1, 2, 3, 4, 5], 2]",
         "output": "[1, 2, 3, 5]"
+      },
+      {
+        "input": "values = [1], n = 1",
+        "output": "[]"
       }
     ],
     "constraints": [
@@ -1194,6 +1270,10 @@ export const dsaQuestions = [
       {
         "input": "[['push -2', 'push 0', 'push -3', 'getMin', 'pop', 'top', 'getMin']]",
         "output": "[-3, 0, -2]"
+      },
+      {
+        "input": "ops = ['push 1', 'push -1', 'getMin', 'pop', 'top']",
+        "output": "[-1, 1]"
       }
     ],
     "constraints": [
@@ -1257,6 +1337,10 @@ export const dsaQuestions = [
       {
         "input": "[[73, 74, 75, 71, 69, 72, 76, 73]]",
         "output": "[1, 1, 4, 2, 1, 1, 0, 0]"
+      },
+      {
+        "input": "temperatures = [30, 40, 50, 60]",
+        "output": "[1, 1, 1, 0]"
       }
     ],
     "constraints": [
@@ -1327,6 +1411,10 @@ export const dsaQuestions = [
       {
         "input": "[['2', '1', '+', '3', '*']]",
         "output": "9"
+      },
+      {
+        "input": "tokens = ['4', '13', '5', '/', '+']",
+        "output": "6"
       }
     ],
     "constraints": [
@@ -1381,6 +1469,10 @@ export const dsaQuestions = [
       {
         "input": "[[3, 9, 20, None, None, 15, 7]]",
         "output": "3"
+      },
+      {
+        "input": "nodes = [1, None, 2]",
+        "output": "2"
       }
     ],
     "constraints": [
@@ -1441,6 +1533,10 @@ export const dsaQuestions = [
       {
         "input": "[[4, 2, 7, 1, 3, 6, 9]]",
         "output": "[4, 7, 2, 9, 6, 3, 1]"
+      },
+      {
+        "input": "tree = [2, 1, 3]",
+        "output": "[2, 3, 1]"
       }
     ],
     "constraints": [
@@ -1513,6 +1609,10 @@ export const dsaQuestions = [
       {
         "input": "[[1, 2, 3], [1, 2, 3]]",
         "output": "True"
+      },
+      {
+        "input": "p = [1, 2], q = [1, None, 2]",
+        "output": "False"
       }
     ],
     "constraints": [
@@ -1572,6 +1672,10 @@ export const dsaQuestions = [
       {
         "input": "[[3, 4, 5, 1, 2], [4, 1, 2]]",
         "output": "True"
+      },
+      {
+        "input": "root = [3, 4, 5, 1, 2], subRoot = [4, 1, 3]",
+        "output": "False"
       }
     ],
     "constraints": [
@@ -1636,6 +1740,10 @@ export const dsaQuestions = [
       {
         "input": "[[1, 2, 3]]",
         "output": "True"
+      },
+      {
+        "input": "inorder = [5, 1, 4, None, None, 3, 6]",
+        "output": "False"
       }
     ],
     "constraints": [
@@ -1690,6 +1798,10 @@ export const dsaQuestions = [
       {
         "input": "[[1, 2, 3, 4, 5], 3]",
         "output": "3"
+      },
+      {
+        "input": "elements = [1, 2], k = 1",
+        "output": "1"
       }
     ],
     "constraints": [
@@ -1743,6 +1855,10 @@ export const dsaQuestions = [
       {
         "input": "[[3, 9, 20, 15, 7]]",
         "output": "[[3], [9, 20], [15, 7]]"
+      },
+      {
+        "input": "nodes = [1]",
+        "output": "[[1]]"
       }
     ],
     "constraints": [
@@ -1809,6 +1925,10 @@ export const dsaQuestions = [
       {
         "input": "[2]",
         "output": "2"
+      },
+      {
+        "input": "n = 3",
+        "output": "3"
       }
     ],
     "constraints": [
@@ -1857,6 +1977,10 @@ export const dsaQuestions = [
       {
         "input": "[[1, 2, 3, 1]]",
         "output": "4"
+      },
+      {
+        "input": "nums = [2, 7, 9, 3, 1]",
+        "output": "12"
       }
     ],
     "constraints": [
@@ -1910,6 +2034,10 @@ export const dsaQuestions = [
       {
         "input": "[[2, 3, 2]]",
         "output": "3"
+      },
+      {
+        "input": "nums = [1, 2, 3, 1]",
+        "output": "4"
       }
     ],
     "constraints": [
@@ -1961,6 +2089,10 @@ export const dsaQuestions = [
       {
         "input": "[[1, 2, 5], 11]",
         "output": "3"
+      },
+      {
+        "input": "coins = [2], amount = 3",
+        "output": "-1"
       }
     ],
     "constraints": [
@@ -2019,6 +2151,10 @@ export const dsaQuestions = [
     "examples": [
       {
         "input": "[[10, 9, 2, 5, 3, 7, 101, 18]]",
+        "output": "4"
+      },
+      {
+        "input": "nums = [0, 1, 0, 3, 2, 3]",
         "output": "4"
       }
     ],
@@ -2091,6 +2227,10 @@ export const dsaQuestions = [
       {
         "input": "['leetcode', ['leet', 'code']]",
         "output": "True"
+      },
+      {
+        "input": "s = 'applepenapple', wordDict = ['apple', 'pen']",
+        "output": "True"
       }
     ],
     "constraints": [
@@ -2154,6 +2294,10 @@ export const dsaQuestions = [
       {
         "input": "[3, 7]",
         "output": "28"
+      },
+      {
+        "input": "m = 3, n = 2",
+        "output": "3"
       }
     ],
     "constraints": [
@@ -2198,6 +2342,10 @@ export const dsaQuestions = [
       {
         "input": "[[2, 3, 1, 1, 4]]",
         "output": "True"
+      },
+      {
+        "input": "nums = [3, 2, 1, 0, 4]",
+        "output": "False"
       }
     ],
     "constraints": [
@@ -2252,6 +2400,10 @@ export const dsaQuestions = [
       {
         "input": "[[['1', '1', '1', '1', '0'], ['1', '1', '0', '1', '0'], ['1', '1', '0', '0', '0'], ['0', '0', '0', '0', '0']]]",
         "output": "1"
+      },
+      {
+        "input": "grid = [['1', '1', '0', '0', '0'], ['1', '1', '0', '0', '0'], ['0', '0', '1', '0', '0'], ['0', '0', '0', '1', '1']]",
+        "output": "3"
       }
     ],
     "constraints": [
@@ -2352,6 +2504,10 @@ export const dsaQuestions = [
       {
         "input": "[[[2, 4], [1, 3], [2, 4], [1, 3]]]",
         "output": "[[2, 4], [1, 3], [2, 4], [1, 3]]"
+      },
+      {
+        "input": "adj = []",
+        "output": "[]"
       }
     ],
     "constraints": [
@@ -2406,9 +2562,7 @@ export const dsaQuestions = [
         "input": [
           []
         ],
-        "expected": [
-          []
-        ]
+        "expected": []
       }
     ],
     "hints": [
@@ -2430,6 +2584,10 @@ export const dsaQuestions = [
       {
         "input": "[2, [[1, 0]]]",
         "output": "True"
+      },
+      {
+        "input": "numCourses = 2, prerequisites = [[1, 0], [0, 1]]",
+        "output": "False"
       }
     ],
     "constraints": [
@@ -2488,6 +2646,10 @@ export const dsaQuestions = [
       {
         "input": "[[1, 1, 1, 2, 2, 3], 2]",
         "output": "[1, 2]"
+      },
+      {
+        "input": "nums = [1], k = 1",
+        "output": "[1]"
       }
     ],
     "constraints": [
@@ -2545,6 +2707,10 @@ export const dsaQuestions = [
     "examples": [
       {
         "input": "[[1, 2, 3, 4, 5], 4, 3]",
+        "output": "[1, 2, 3, 4]"
+      },
+      {
+        "input": "arr = [1, 2, 3, 4, 5], k = 4, x = -1",
         "output": "[1, 2, 3, 4]"
       }
     ],
@@ -2614,6 +2780,10 @@ export const dsaQuestions = [
       {
         "input": "[[0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]]",
         "output": "6"
+      },
+      {
+        "input": "height = [4, 2, 0, 3, 2, 5]",
+        "output": "9"
       }
     ],
     "constraints": [
@@ -2676,6 +2846,10 @@ export const dsaQuestions = [
       {
         "input": "['babad']",
         "output": "bab"
+      },
+      {
+        "input": "s = 'cbbd'",
+        "output": "'bb'"
       }
     ],
     "constraints": [
@@ -2718,6 +2892,10 @@ export const dsaQuestions = [
       {
         "input": "['abc']",
         "output": "3"
+      },
+      {
+        "input": "s = 'aaa'",
+        "output": "6"
       }
     ],
     "constraints": [
@@ -2760,6 +2938,10 @@ export const dsaQuestions = [
       {
         "input": "['12']",
         "output": "2"
+      },
+      {
+        "input": "s = '226'",
+        "output": "3"
       }
     ],
     "constraints": [
@@ -2808,6 +2990,10 @@ export const dsaQuestions = [
       {
         "input": "[[1, 2, 3]]",
         "output": "[[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]"
+      },
+      {
+        "input": "nums = [0]",
+        "output": "[[], [0]]"
       }
     ],
     "constraints": [
@@ -2889,6 +3075,10 @@ export const dsaQuestions = [
       {
         "input": "[[2, 3, 6, 7], 7]",
         "output": "[[2, 2, 3], [7]]"
+      },
+      {
+        "input": "candidates = [2, 3, 5], target = 8",
+        "output": "[[2, 2, 2, 2], [2, 3, 3], [3, 5]]"
       }
     ],
     "constraints": [
@@ -2967,6 +3157,10 @@ export const dsaQuestions = [
       {
         "input": "[[1, 2, 3]]",
         "output": "[[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]"
+      },
+      {
+        "input": "nums = [0, 1]",
+        "output": "[[0, 1], [1, 0]]"
       }
     ],
     "constraints": [
@@ -3055,6 +3249,10 @@ export const dsaQuestions = [
     "examples": [
       {
         "input": "[[['A', 'B', 'C', 'E'], ['S', 'F', 'C', 'S'], ['A', 'D', 'E', 'E']], 'ABCCED']",
+        "output": "True"
+      },
+      {
+        "input": "board = [['A', 'B', 'C', 'E'], ['S', 'F', 'C', 'S'], ['A', 'D', 'E', 'E']], word = 'SEE'",
         "output": "True"
       }
     ],
@@ -3164,6 +3362,10 @@ export const dsaQuestions = [
       {
         "input": "['23']",
         "output": "['ad', 'ae', 'af', 'bd', 'be', 'bf', 'cd', 'ce', 'cf']"
+      },
+      {
+        "input": "digits = ''",
+        "output": "[]"
       }
     ],
     "constraints": [
@@ -3216,6 +3418,10 @@ export const dsaQuestions = [
       {
         "input": "[3]",
         "output": "['((()))', '(()())', '(())()', '()(())', '()()()']"
+      },
+      {
+        "input": "n = 1",
+        "output": "['()']"
       }
     ],
     "constraints": [
@@ -3266,6 +3472,10 @@ export const dsaQuestions = [
       {
         "input": "[[2, 3, -2, 4]]",
         "output": "6"
+      },
+      {
+        "input": "nums = [-2, 0, -1]",
+        "output": "0"
       }
     ],
     "constraints": [
@@ -3317,6 +3527,10 @@ export const dsaQuestions = [
       {
         "input": "[[1, 2, 3, 4, 5], [3, 4, 5, 1, 2]]",
         "output": "3"
+      },
+      {
+        "input": "gas = [2, 3, 4], cost = [3, 4, 3]",
+        "output": "-1"
       }
     ],
     "constraints": [
@@ -3381,6 +3595,10 @@ export const dsaQuestions = [
       {
         "input": "[[[1, 2, 3], [4, 5, 6], [7, 8, 9]]]",
         "output": "[[7, 4, 1], [8, 5, 2], [9, 6, 3]]"
+      },
+      {
+        "input": "matrix = [[1, 2], [3, 4]]",
+        "output": "[[3, 1], [4, 2]]"
       }
     ],
     "constraints": [
@@ -3460,6 +3678,102 @@ export const dsaQuestions = [
     "solution": {
       "python": "def rotate_matrix(matrix: list) -> list:\n    \n    return [list(row) for row in zip(*matrix[::-1])]",
       "explanation": "Classic interview DSA question tested using Arrays patterns with optimal time complexity."
+    }
+  },
+  {
+    "id": "dsa-56",
+    "title": "Merge Intervals",
+    "track": "dsa",
+    "difficulty": "Medium",
+    "topic": "Arrays",
+    "description": "Given a list of intervals, merge every overlapping pair and return the remaining non-overlapping intervals in ascending order.",
+    "examples": [
+      { "input": "intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]", "output": "[[1, 6], [8, 10], [15, 18]]" },
+      { "input": "intervals = [[1, 4], [4, 5]]", "output": "[[1, 5]]" }
+    ],
+    "constraints": ["1 <= len(intervals) <= 10^5", "Each interval is [start, end] with start <= end."],
+    "starterCode": { "python": "def merge_intervals(intervals: list) -> list:\n    pass\n" },
+    "testCases": [
+      { "input": [[ [1, 3], [2, 6], [8, 10], [15, 18] ]], "expected": [[1, 6], [8, 10], [15, 18]] },
+      { "input": [[ [1, 4], [4, 5] ]], "expected": [[1, 5]] },
+      { "input": [[ [1, 4], [0, 4] ]], "expected": [[0, 4]] }
+    ],
+    "hints": ["Sort intervals by their start value.", "Keep one active interval and extend its end when the next interval overlaps."],
+    "solution": {
+      "python": "def merge_intervals(intervals: list) -> list:\n    merged = []\n    for start, end in sorted(intervals):\n        if not merged or start > merged[-1][1]:\n            merged.append([start, end])\n        else:\n            merged[-1][1] = max(merged[-1][1], end)\n    return merged",
+      "explanation": "Sorting takes O(n log n); the single merge pass takes O(n). The output uses O(n) space."
+    }
+  },
+  {
+    "id": "dsa-57",
+    "title": "Longest Consecutive Sequence",
+    "track": "dsa",
+    "difficulty": "Medium",
+    "topic": "Hash Maps & Dicts",
+    "description": "Return the length of the longest run of consecutive integers in an unsorted list. The target complexity is O(n).",
+    "examples": [
+      { "input": "nums = [100, 4, 200, 1, 3, 2]", "output": "4" },
+      { "input": "nums = [0, 3, 7, 2, 5, 8, 4, 6, 0, 1]", "output": "9" }
+    ],
+    "constraints": ["0 <= len(nums) <= 10^5", "Values are integers."],
+    "starterCode": { "python": "def longest_consecutive(nums: list) -> int:\n    pass\n" },
+    "testCases": [
+      { "input": [[100, 4, 200, 1, 3, 2]], "expected": 4 },
+      { "input": [[0, 3, 7, 2, 5, 8, 4, 6, 0, 1]], "expected": 9 },
+      { "input": [[]], "expected": 0 }
+    ],
+    "hints": ["Put the values in a set.", "Only begin counting from a value whose predecessor is absent."],
+    "solution": {
+      "python": "def longest_consecutive(nums: list) -> int:\n    values = set(nums)\n    best = 0\n    for value in values:\n        if value - 1 not in values:\n            end = value\n            while end in values:\n                end += 1\n            best = max(best, end - value)\n    return best",
+      "explanation": "Each value is visited a constant number of times, giving O(n) average time and O(n) space."
+    }
+  },
+  {
+    "id": "dsa-58",
+    "title": "Meeting Rooms II",
+    "track": "dsa",
+    "difficulty": "Medium",
+    "topic": "Sorting",
+    "description": "Given meeting start and end times, return the minimum number of rooms required so no meetings overlap in a room.",
+    "examples": [
+      { "input": "intervals = [[0, 30], [5, 10], [15, 20]]", "output": "2" },
+      { "input": "intervals = [[7, 10], [2, 4]]", "output": "1" }
+    ],
+    "constraints": ["0 <= len(intervals) <= 10^5", "Meeting intervals have start < end."],
+    "starterCode": { "python": "def min_meeting_rooms(intervals: list) -> int:\n    pass\n" },
+    "testCases": [
+      { "input": [[ [0, 30], [5, 10], [15, 20] ]], "expected": 2 },
+      { "input": [[ [7, 10], [2, 4] ]], "expected": 1 },
+      { "input": [[]], "expected": 0 }
+    ],
+    "hints": ["Sort start times and end times separately.", "A room becomes available when its meeting ends at or before the next meeting starts."],
+    "solution": {
+      "python": "def min_meeting_rooms(intervals: list) -> int:\n    if not intervals:\n        return 0\n    starts = sorted(start for start, _ in intervals)\n    ends = sorted(end for _, end in intervals)\n    rooms = end_index = 0\n    for start in starts:\n        if start >= ends[end_index]:\n            end_index += 1\n        else:\n            rooms += 1\n    return rooms",
+      "explanation": "Sorting dominates at O(n log n); the sweep uses O(n) additional space."
+    }
+  },
+  {
+    "id": "dsa-59",
+    "title": "Task Scheduler",
+    "track": "dsa",
+    "difficulty": "Medium",
+    "topic": "Hash Maps & Dicts",
+    "description": "Given tasks represented by capital letters and a cooldown n, return the minimum intervals needed to finish all tasks. The same task must be separated by at least n intervals.",
+    "examples": [
+      { "input": "tasks = ['A', 'A', 'A', 'B', 'B', 'B'], n = 2", "output": "8" },
+      { "input": "tasks = ['A', 'A', 'A', 'B', 'B', 'B'], n = 0", "output": "6" }
+    ],
+    "constraints": ["1 <= len(tasks) <= 10^4", "0 <= n <= 100"],
+    "starterCode": { "python": "def least_interval(tasks: list, n: int) -> int:\n    pass\n" },
+    "testCases": [
+      { "input": [["A", "A", "A", "B", "B", "B"], 2], "expected": 8 },
+      { "input": [["A", "A", "A", "B", "B", "B"], 0], "expected": 6 },
+      { "input": [["A", "A", "A", "A", "A", "A", "B", "C", "D", "E", "F", "G"], 2], "expected": 16 }
+    ],
+    "hints": ["The most frequent task determines the minimum frame length.", "Compare the cooldown frame length with the total number of tasks."],
+    "solution": {
+      "python": "def least_interval(tasks: list, n: int) -> int:\n    from collections import Counter\n    counts = Counter(tasks).values()\n    highest = max(counts)\n    tied = sum(count == highest for count in counts)\n    frame = (highest - 1) * (n + 1) + tied\n    return max(len(tasks), frame)",
+      "explanation": "The frequency count takes O(n) time and O(1) space for the fixed uppercase alphabet."
     }
   }
 ];

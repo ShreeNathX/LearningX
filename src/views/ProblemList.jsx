@@ -4,18 +4,23 @@ import {
   CheckCircle2, 
   Circle, 
   Star, 
-  Filter, 
   Sparkles, 
   Shuffle, 
   BookOpen, 
   ChevronRight,
   Code2,
-  GitMerge,
-  Database,
-  ArrowUpDown
+  BriefcaseBusiness,
 } from 'lucide-react';
 import { TRACKS, DIFFICULTIES, TOPIC_TAGS } from '../data/categories';
 import { toggleStarProblem } from '../services/storage';
+import { DataAnalystPrep } from './DataAnalystPrep';
+
+// A compact rotation of common interview patterns already covered by the catalog.
+const CORE_INTERVIEW_IDS = new Set([
+  'prog-02', 'prog-07', 'prog-08', 'prog-11', 'prog-12', 'prog-13', 'prog-16', 'prog-17', 'prog-19', 'prog-20', 'prog-37', 'prog-40', 'prog-48', 'prog-49', 'prog-75',
+  'dsa-01', 'dsa-02', 'dsa-03', 'dsa-04', 'dsa-05', 'dsa-06', 'dsa-07', 'dsa-08', 'dsa-11', 'dsa-13', 'dsa-16', 'dsa-18', 'dsa-20', 'dsa-21', 'dsa-23', 'dsa-27', 'dsa-29', 'dsa-30', 'dsa-31', 'dsa-33', 'dsa-34', 'dsa-37', 'dsa-38', 'dsa-41', 'dsa-43', 'dsa-56', 'dsa-57', 'dsa-58',
+  'sql-01', 'sql-02', 'sql-03', 'sql-04', 'sql-05', 'sql-07', 'sql-13', 'sql-15', 'sql-17', 'sql-20', 'sql-21', 'sql-28', 'sql-30', 'sql-33', 'sql-35', 'sql-54', 'sql-55'
+]);
 
 export function ProblemList({ 
   questions, 
@@ -30,7 +35,9 @@ export function ProblemList({
   const [selectedTopic, setSelectedTopic] = useState('All');
   const [filterSolved, setFilterSolved] = useState('all'); // 'all' | 'solved' | 'unsolved'
   const [showStarredOnly, setShowStarredOnly] = useState(false);
-  const [sortBy, setSortBy] = useState('default'); // 'default' | 'title' | 'difficulty'
+  const [coreOnly, setCoreOnly] = useState(false);
+  const [storageWarning, setStorageWarning] = useState('');
+  const [showAnalystPrep, setShowAnalystPrep] = useState(false);
 
   const solvedSet = useMemo(() => {
     const availableIds = new Set(questions.map((question) => question.id));
@@ -38,7 +45,7 @@ export function ProblemList({
   }, [questions, userData.solved]);
   const starredSet = useMemo(() => new Set(userData.starred || []), [userData.starred]);
 
-  // Filter and sort questions
+  // Filter the catalog before rendering it.
   const filteredQuestions = useMemo(() => {
     return questions.filter((q) => {
       // Track filter
@@ -63,6 +70,7 @@ export function ProblemList({
 
       // Starred filter
       if (showStarredOnly && !starredSet.has(q.id)) return false;
+      if (coreOnly && !CORE_INTERVIEW_IDS.has(q.id)) return false;
 
       // Search Query
       if (searchQuery.trim()) {
@@ -74,10 +82,6 @@ export function ProblemList({
       }
 
       return true;
-    }).sort((a, b) => {
-      if (sortBy === 'title') return a.title.localeCompare(b.title);
-      if (sortBy === 'difficulty') return a.difficulty.localeCompare(b.difficulty);
-      return 0; // default order
     });
   }, [
     questions, 
@@ -87,21 +91,28 @@ export function ProblemList({
     filterSolved, 
     showStarredOnly, 
     searchQuery, 
-    sortBy, 
+    coreOnly,
     solvedSet, 
     starredSet
   ]);
 
   const handleStarClick = (e, problemId) => {
     e.stopPropagation();
-    toggleStarProblem(problemId);
+    if (!toggleStarProblem(problemId)) {
+      setStorageWarning('Your bookmark could not be saved in this browser.');
+    } else {
+      setStorageWarning('');
+    }
     onUserDataUpdate();
   };
 
   const pickRandomProblem = () => {
     if (filteredQuestions.length === 0) return;
-    const randomIdx = Math.floor(Math.random() * filteredQuestions.length);
-    onSelectProblem(filteredQuestions[randomIdx]);
+    const essentials = filteredQuestions.filter((question) => CORE_INTERVIEW_IDS.has(question.id));
+    const candidates = essentials.length ? essentials : filteredQuestions;
+    const unsolved = candidates.filter((question) => !solvedSet.has(question.id));
+    const pool = unsolved.length ? unsolved : candidates;
+    onSelectProblem(pool[Math.floor(Math.random() * pool.length)]);
   };
 
   // Stats calculation
@@ -109,12 +120,25 @@ export function ProblemList({
   const solvedCount = solvedSet.size;
   const easyCount = questions.filter(q => q.difficulty === 'Easy').length;
   const mediumCount = questions.filter(q => q.difficulty === 'Medium').length;
+  const hardCount = questions.filter(q => q.difficulty === 'Hard').length;
   const solvedEasy = questions.filter(q => q.difficulty === 'Easy' && solvedSet.has(q.id)).length;
   const solvedMedium = questions.filter(q => q.difficulty === 'Medium' && solvedSet.has(q.id)).length;
+  const solvedHard = questions.filter(q => q.difficulty === 'Hard' && solvedSet.has(q.id)).length;
   const remainingCount = Math.max(0, totalCount - solvedCount);
+
+  if (showAnalystPrep) {
+    return <DataAnalystPrep
+      userData={userData}
+      sqlQuestions={questions.filter((question) => question.analystPrep)}
+      onBack={() => setShowAnalystPrep(false)}
+      onSelectProblem={onSelectProblem}
+      onUserDataUpdate={onUserDataUpdate}
+    />;
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-5 sm:space-y-8 animate-fade-in">
+      {storageWarning && <p role="alert" className="text-xs text-amber-200 bg-amber-950/70 border border-amber-800/50 rounded-lg px-3 py-2">{storageWarning}</p>}
       
       {/* Hero Overview & Progress Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
@@ -139,7 +163,14 @@ export function ProblemList({
                 className="btn-primary w-full sm:w-auto justify-center px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2"
               >
                 <Shuffle className="w-4 h-4" />
-                Pick Random Challenge
+                Practice an Essential
+              </button>
+              <button
+                onClick={() => setShowAnalystPrep(true)}
+                className="w-full sm:w-auto justify-center px-4 py-2.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-200 hover:bg-emerald-500/15 text-xs font-semibold flex items-center gap-2"
+              >
+                <BriefcaseBusiness className="w-4 h-4" />
+                Data Analyst Interview Prep
               </button>
             </div>
           </div>
@@ -205,6 +236,16 @@ export function ProblemList({
                 />
               </div>
             </div>
+
+            <div>
+              <div className="flex justify-between text-xs mb-1">
+                <span className="text-rose-400 font-medium">Hard</span>
+                <span className="text-slate-400 font-mono">{solvedHard} / {hardCount}</span>
+              </div>
+              <div className="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden">
+                <div className="h-full bg-rose-500 rounded-full transition-all duration-500" style={{ width: `${(solvedHard / (hardCount || 1)) * 100}%` }} />
+              </div>
+            </div>
           </div>
         </div>
 
@@ -268,6 +309,7 @@ export function ProblemList({
               <option value="All">All Difficulties</option>
               <option value="Easy">Easy</option>
               <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
             </select>
 
             {/* Topic Selector */}
@@ -294,6 +336,18 @@ export function ProblemList({
 
             {/* Starred Button Toggle */}
             <button
+              onClick={() => setCoreOnly((current) => !current)}
+              aria-pressed={coreOnly}
+              className={`justify-center px-3 py-2 rounded-xl border text-xs transition-colors ${
+                coreOnly
+                  ? 'bg-cyan-500/15 border-cyan-500/40 text-cyan-300'
+                  : 'bg-slate-950/70 border-slate-800 text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              Core set ({CORE_INTERVIEW_IDS.size})
+            </button>
+
+            <button
               onClick={() => setShowStarredOnly(!showStarredOnly)}
               className={`justify-center p-2 rounded-xl border text-xs transition-colors flex items-center gap-1.5 ${
                 showStarredOnly
@@ -305,18 +359,6 @@ export function ProblemList({
               <Star className={`w-4 h-4 ${showStarredOnly ? 'fill-amber-400' : ''}`} />
             </button>
 
-            {/* Sort Toggle */}
-            <button
-              onClick={() => {
-                const next = sortBy === 'default' ? 'title' : sortBy === 'title' ? 'difficulty' : 'default';
-                setSortBy(next);
-              }}
-              className="justify-center px-3 py-2 bg-slate-950/70 border border-slate-800 rounded-xl text-xs text-slate-300 hover:text-slate-100 flex items-center gap-1.5"
-              title={`Sorting by: ${sortBy}`}
-            >
-              <ArrowUpDown className="w-3.5 h-3.5 text-slate-500" />
-              <span className="capitalize">{sortBy}</span>
-            </button>
           </div>
         </div>
       </div>
@@ -344,11 +386,16 @@ export function ProblemList({
               return (
                 <div
                   key={q.id}
-                  onClick={() => onSelectProblem(q)}
-                  className="glass-card rounded-xl p-3.5 sm:p-4 border border-slate-800/80 hover:border-cyan-500/40 cursor-pointer flex items-center justify-between gap-2 sm:gap-4 group transition-all"
+                  className="glass-card relative rounded-xl p-3.5 sm:p-4 border border-slate-800/80 hover:border-cyan-500/40 flex items-center justify-between gap-2 sm:gap-4 group transition-all"
                 >
+                  <button
+                    type="button"
+                    onClick={() => onSelectProblem(q)}
+                    aria-label={`Open ${q.title}, ${q.difficulty} ${q.track} challenge`}
+                    className="absolute inset-0 z-0 cursor-pointer rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-400"
+                  />
                   {/* Left info */}
-                  <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
+                  <div className="relative z-[1] pointer-events-none flex items-center gap-2.5 sm:gap-3.5 min-w-0">
                     {/* Solved Status Indicator */}
                     <div className="flex-shrink-0">
                       {isSolved ? (
@@ -373,7 +420,7 @@ export function ProblemList({
                           className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
                             q.difficulty === 'Easy'
                               ? 'badge-emerald'
-                              : 'badge-amber'
+                              : q.difficulty === 'Hard' ? 'badge-rose' : 'badge-amber'
                           }`}
                         >
                           {q.difficulty}
@@ -394,11 +441,12 @@ export function ProblemList({
                   </div>
 
                   {/* Right actions */}
-                  <div className="flex items-center gap-2 flex-shrink-0">
+                  <div className="relative z-10 pointer-events-none flex items-center gap-2 flex-shrink-0">
                     {/* Star Button */}
                     <button
                       onClick={(e) => handleStarClick(e, q.id)}
-                      className={`p-1.5 rounded-lg hover:bg-slate-800/60 transition-colors ${
+                      aria-label={isStarred ? `Remove ${q.title} bookmark` : `Bookmark ${q.title}`}
+                      className={`pointer-events-auto p-1.5 rounded-lg hover:bg-slate-800/60 transition-colors ${
                         isStarred ? 'text-amber-400' : 'text-slate-600 hover:text-slate-400'
                       }`}
                       title={isStarred ? 'Remove Bookmark' : 'Bookmark Question'}
@@ -406,7 +454,7 @@ export function ProblemList({
                       <Star className={`w-4 h-4 ${isStarred ? 'fill-amber-400' : ''}`} />
                     </button>
 
-                    <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all" />
+                    <ChevronRight aria-hidden="true" className="w-4 h-4 text-slate-600 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all" />
                   </div>
                 </div>
               );

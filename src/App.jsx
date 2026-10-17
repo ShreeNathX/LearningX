@@ -93,11 +93,6 @@ export function App() {
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-cyan-500/20 selection:text-cyan-300">
       {/* Top Navbar */}
       <Navbar
-        currentTrack={currentTrack}
-        onSelectTrack={(track) => {
-          setCurrentTrack(track);
-          if (activeProblem) handleNavigateHome();
-        }}
         userData={userData}
         onUserDataUpdate={refreshUserData}
         totalQuestions={questions.length}
@@ -140,12 +135,7 @@ export function App() {
       {/* Footer when on Catalog */}
       {!activeProblem && (
         <footer className="border-t border-slate-900 bg-slate-950 py-8 px-4 text-center text-xs text-slate-500 space-y-2">
-          <p>
-            LearningX • Engineered for serious programmers preparing for top tech interviews.
-          </p>
-          <p className="text-[11px] text-slate-600">
-            Client-Side WebAssembly (Pyodide & SQLite) • Zero Server Dependencies • GitHub Pages Ready
-          </p>
+          <p>Practice Python, data structures, algorithms, and SQL. Your progress stays in this browser.</p>
         </footer>
       )}
     </div>

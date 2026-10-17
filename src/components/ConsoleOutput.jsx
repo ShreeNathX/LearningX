@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckCircle, XCircle, Terminal, AlertTriangle, Clock, Database, Eye } from 'lucide-react';
+import { CheckCircle, XCircle, Terminal, AlertTriangle, Clock, Database } from 'lucide-react';
 import { SqlTableViewer } from './SqlTableViewer';
 
 export function ConsoleOutput({ 

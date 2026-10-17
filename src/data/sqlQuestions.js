@@ -22,7 +22,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT (SELECT DISTINCT salary FROM Employee ORDER BY salary DESC LIMIT 1 OFFSET 1) AS SecondHighestSalary;",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "SecondHighestSalary\n200",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "SecondHighestSalary\nNULL",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-02",
@@ -47,7 +59,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT email FROM Person GROUP BY email HAVING COUNT(*) > 1;",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "email\na@b.com",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "email\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-03",
@@ -74,7 +98,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT e1.name AS Employee FROM Employee e1 INNER JOIN Employee e2 ON e1.managerId = e2.id WHERE e1.salary > e2.salary;",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "Employee\nJoe",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "Employee\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-04",
@@ -106,7 +142,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT name AS Customers FROM Customers WHERE id NOT IN (SELECT customerId FROM Orders);",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "Customers\nHenry\nMax",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "Customers\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-05",
@@ -140,7 +188,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "WITH Ranked AS (SELECT departmentId, name, salary, DENSE_RANK() OVER (PARTITION BY departmentId ORDER BY salary DESC) as rnk FROM Employee) SELECT d.name as Department, r.name as Employee, r.salary as Salary FROM Ranked r JOIN Department d ON r.departmentId = d.id WHERE r.rnk = 1;",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "Department | Employee | Salary\nIT | Jim | 90000\nSales | Henry | 80000\nIT | Max | 90000",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "Department | Employee | Salary\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-06",
@@ -165,7 +225,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT id, email FROM Person WHERE id IN (SELECT MIN(id) FROM Person GROUP BY email);",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "id | email\n1 | john@example.com\n2 | bob@example.com",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "id | email\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-07",
@@ -191,7 +263,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT w1.id FROM Weather w1, Weather w2 WHERE date(w1.recordDate, '-1 day') = w2.recordDate AND w1.temperature > w2.temperature;",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "id\n2\n4",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "id\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-08",
@@ -199,7 +283,7 @@ export const sqlQuestions = [
     "track": "sql",
     "difficulty": "Easy",
     "topic": "Aggregation",
-    "description": "A country is big if it has an area of at least 3 million km\u00b2 or a population of at least 25 million. Report name, population, and area of big countries.",
+    "description": "A country is big if it has an area of at least 3 million km² or a population of at least 25 million. Report name, population, and area of big countries.",
     "schemaSql": "CREATE TABLE World (name VARCHAR(50), continent VARCHAR(50), area INT, population INT, gdp BIGINT);\nINSERT INTO World VALUES ('Afghanistan', 'Asia', 652230, 25500100, 20343000), ('Albania', 'Europe', 28748, 2831741, 12960000), ('Algeria', 'Africa', 2381741, 37100000, 188681000), ('Andorra', 'Europe', 468, 78115, 3712000), ('Angola', 'Africa', 1246700, 20609294, 100990000);",
     "schemaDescription": [
       {
@@ -219,7 +303,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT name, population, area FROM World WHERE area >= 3000000 UNION SELECT name, population, area FROM World WHERE population >= 25000000;",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "name | population | area\nAfghanistan | 25500100 | 652230\nAlgeria | 37100000 | 2381741",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "name | population | area\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-09",
@@ -244,7 +340,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT class FROM Courses GROUP BY class HAVING COUNT(DISTINCT student) >= 5;",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "class\nMath",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "class\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-10",
@@ -271,7 +379,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT * FROM Cinema WHERE (id % 2 = 1) AND description NOT LIKE 'boring' ORDER BY rating DESC;",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "id | movie | description | rating\n5 | House card | Interesting | 9.1\n1 | War | great 3D | 8.9",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "id | movie | description | rating\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-11",
@@ -294,11 +414,24 @@ export const sqlQuestions = [
     ],
     "starterCode": "-- Write your SQL query below\\n",
     "expectedQuery": "SELECT id, name, CASE WHEN sex = 'm' THEN 'f' ELSE 'm' END AS sex, salary FROM Salary;",
+    "resultQuery": "SELECT id, name, sex, salary FROM Salary;",
     "hints": [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "UPDATE Salary SET sex = CASE WHEN sex = 'm' THEN 'f' ELSE 'm' END;",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "id | name | sex | salary\n1 | A | f | 2500\n2 | B | m | 1500\n3 | C | f | 5500\n4 | D | m | 500",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "id | name | sex | salary\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-12",
@@ -332,12 +465,25 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT p.product_name, s.year, s.price FROM Sales s INNER JOIN Product p USING(product_id);",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "product_name | year | price\nNokia | 2008 | 5000\nNokia | 2009 | 5000\nApple | 2011 | 9000",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "product_name | year | price\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-13",
     "title": "Average Selling Price",
     "track": "sql",
+    "analystPrep": true,
     "difficulty": "Easy",
     "topic": "Aggregation",
     "description": "Find the average selling price for each product. average_price should be rounded to 2 decimal places.",
@@ -367,7 +513,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT p.product_id, ROUND(CAST(SUM(p.price * u.units) AS FLOAT) / SUM(u.units), 2) as average_price FROM Prices p INNER JOIN UnitsSold u ON p.product_id = u.product_id AND u.purchase_date BETWEEN p.start_date AND p.end_date GROUP BY p.product_id;",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "product_id | average_price\n1 | 6.96\n2 | 15.0",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "product_id | average_price\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-14",
@@ -399,7 +557,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT project_id, ROUND(AVG(experience_years * 1.0), 2) AS average_years FROM Project p JOIN Employee e ON p.employee_id = e.employee_id GROUP BY project_id;",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "project_id | average_years\n1 | 2.0\n2 | 2.5",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "project_id | average_years\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-15",
@@ -437,7 +607,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT s.student_id, s.student_name, sub.subject_name, COUNT(e.student_id) as attended_exams FROM Students s CROSS JOIN Subjects sub LEFT JOIN Examinations e ON s.student_id = e.student_id AND sub.subject_name = e.subject_name GROUP BY s.student_id, sub.subject_name ORDER BY s.student_id, sub.subject_name;",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "student_id | student_name | subject_name | attended_exams\n1 | Alice | Math | 2\n1 | Alice | Physics | 2\n1 | Alice | Programming | 1\n2 | Bob | Math | 0\n2 | Bob | Physics | 0\n2 | Bob | Programming | 1\n13 | John | Math | 0\n13 | John | Physics | 0\n13 | John | Programming | 0",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "student_id | student_name | subject_name | attended_exams\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-16",
@@ -463,12 +645,25 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT name FROM Employee WHERE id IN (SELECT managerId FROM Employee GROUP BY managerId HAVING COUNT(*) >= 5);",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "name\nJohn",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "name\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-17",
     "title": "Confirmation Rate",
     "track": "sql",
+    "analystPrep": true,
     "difficulty": "Medium",
     "topic": "Window Functions",
     "description": "Find the confirmation rate of each user. Confirmation rate is count of 'confirmed' messages divided by total requests (0 if no requests). Round to 2 decimals.",
@@ -494,7 +689,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT s.user_id, ROUND(IFNULL(AVG(c.action = 'confirmed'), 0), 2) as confirmation_rate FROM Signups s LEFT JOIN Confirmations c USING (user_id) GROUP BY s.user_id;",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "user_id | confirmation_rate\n2 | 0.0\n3 | 0.5\n7 | 1.0",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "user_id | confirmation_rate\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-18",
@@ -520,7 +727,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT *, CASE WHEN x + y > z AND x + z > y AND y + z > x THEN 'Yes' ELSE 'No' END AS triangle FROM Triangle;",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "x | y | z | triangle\n13 | 15 | 30 | No\n10 | 20 | 15 | Yes",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "x | y | z | triangle\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-19",
@@ -544,7 +763,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT (SELECT num FROM MyNumbers GROUP BY num HAVING COUNT(*) = 1 ORDER BY num DESC LIMIT 1) AS num;",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "num\n6",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "num\nNULL",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-20",
@@ -569,7 +800,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "WITH CTE AS (SELECT num, LEAD(num, 1) OVER (ORDER BY id) as nxt, LEAD(num, 2) OVER (ORDER BY id) as nxt2 FROM Logs) SELECT DISTINCT num as ConsecutiveNums FROM CTE WHERE num = nxt AND nxt = nxt2;",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "ConsecutiveNums\n1",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "ConsecutiveNums\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-21",
@@ -594,7 +837,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT score, DENSE_RANK() OVER (ORDER BY score DESC) AS 'rank' FROM Scores;",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "score | rank\n4.0 | 1\n4.0 | 1\n3.85 | 2\n3.65 | 3\n3.65 | 3\n3.5 | 4",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "score | rank\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-22",
@@ -619,7 +874,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT 'Low Salary' as category, SUM(income < 20000) as accounts_count FROM Accounts UNION SELECT 'Average Salary', SUM(income BETWEEN 20000 AND 50000) FROM Accounts UNION SELECT 'High Salary', SUM(income > 50000) FROM Accounts;",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "category | accounts_count\nLow Salary | 1\nAverage Salary | 0\nHigh Salary | 3",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "category | accounts_count\nLow Salary | 0\nAverage Salary | 0\nHigh Salary | 0",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-23",
@@ -645,7 +912,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT activity_date as day, COUNT(DISTINCT user_id) as active_users FROM Activity WHERE activity_date > '2019-06-27' AND activity_date <= '2019-07-27' GROUP BY activity_date;",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "day | active_users\n2019-07-20 | 2\n2019-07-21 | 2",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "day | active_users\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-24",
@@ -672,7 +951,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT event_day AS day, emp_id, SUM(out_time - in_time) AS total_time FROM Employees GROUP BY 1, 2;",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "day | emp_id | total_time\n2020-11-28 | 1 | 173\n2020-11-28 | 2 | 30\n2020-12-03 | 1 | 41\n2020-12-09 | 2 | 27",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "day | emp_id | total_time\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-25",
@@ -698,7 +989,19 @@ export const sqlQuestions = [
       "Check table relationships, joins, aggregation clauses, and column aliases."
     ],
     "solution": "SELECT product_id FROM Products WHERE low_fats = 'Y' AND recyclable = 'Y';",
-    "explanation": "Executed against SQLite WASM database with verification against optimal solution query."
+    "explanation": "Executed against SQLite WASM database with verification against optimal solution query.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "product_id\n1\n3",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "product_id\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-26",
@@ -722,7 +1025,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT customer_number FROM Orders GROUP BY customer_number ORDER BY COUNT(*) DESC LIMIT 1;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "customer_number\n3",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "customer_number\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-27",
@@ -746,12 +1061,25 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT player_id, MIN(event_date) AS first_login FROM Activity GROUP BY player_id;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "player_id | first_login\n1 | 2016-03-01\n2 | 2017-06-25",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "player_id | first_login\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-28",
     "title": "Game Play Analysis IV (Next Day Retention)",
     "track": "sql",
+    "analystPrep": true,
     "difficulty": "Medium",
     "topic": "Window Functions",
     "description": "Report the fraction of players that logged in again on the day immediately after their first login date, rounded to 2 decimals.",
@@ -770,7 +1098,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "WITH FirstLogin AS (SELECT player_id, MIN(event_date) AS first_date FROM Activity GROUP BY player_id) SELECT ROUND(1.0 * COUNT(a.player_id) / (SELECT COUNT(*) FROM FirstLogin), 2) AS fraction FROM FirstLogin f JOIN Activity a ON f.player_id = a.player_id AND a.event_date = date(f.first_date, '+1 day');",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "fraction\n0.33",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "fraction\nNULL",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-29",
@@ -794,7 +1134,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT name FROM SalesPerson WHERE sales_id NOT IN (SELECT o.sales_id FROM Orders o JOIN Company c ON o.com_id = c.com_id WHERE c.name = 'RED');",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "name\nAmy\nMark",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "name\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-30",
@@ -818,7 +1170,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "WITH Ranked AS (SELECT product_id, new_price, RANK() OVER (PARTITION BY product_id ORDER BY change_date DESC) as rnk FROM Products WHERE change_date <= '2019-08-16') SELECT p.product_id, COALESCE(r.new_price, 10) AS price FROM (SELECT DISTINCT product_id FROM Products) p LEFT JOIN Ranked r ON p.product_id = r.product_id AND r.rnk = 1;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "product_id | price\n1 | 35\n2 | 50\n3 | 10",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "product_id | price\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-31",
@@ -842,7 +1206,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT id, CASE WHEN p_id IS NULL THEN 'Root' WHEN id IN (SELECT p_id FROM Tree WHERE p_id IS NOT NULL) THEN 'Inner' ELSE 'Leaf' END AS type FROM Tree;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "id | type\n1 | Root\n2 | Inner\n3 | Leaf\n4 | Leaf\n5 | Leaf",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "id | type\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-32",
@@ -866,7 +1242,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT ROUND(SUM(tiv_2016), 2) AS tiv_2016 FROM Insurance WHERE tiv_2015 IN (SELECT tiv_2015 FROM Insurance GROUP BY tiv_2015 HAVING COUNT(*) > 1) AND (lat, lon) IN (SELECT lat, lon FROM Insurance GROUP BY lat, lon HAVING COUNT(*) = 1);",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "tiv_2016\n45.0",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "tiv_2016\nNULL",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-33",
@@ -890,7 +1278,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "WITH Ranked AS (SELECT departmentId, name, salary, DENSE_RANK() OVER (PARTITION BY departmentId ORDER BY salary DESC) as rnk FROM Employee) SELECT d.name AS Department, r.name AS Employee, r.salary AS Salary FROM Ranked r JOIN Department d ON r.departmentId = d.id WHERE r.rnk <= 3;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "Department | Employee | Salary\nIT | Joe | 85000\nIT | Max | 90000\nIT | Randy | 85000\nIT | Will | 70000\nSales | Henry | 80000\nSales | Sam | 60000",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "Department | Employee | Salary\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-34",
@@ -914,7 +1314,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "WITH Filtered AS (SELECT id, month, salary, MAX(month) OVER (PARTITION BY id) as max_m FROM Employee) SELECT id, month, SUM(salary) OVER (PARTITION BY id ORDER BY month ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS Salary FROM Filtered WHERE month < max_m ORDER BY id, month DESC;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "id | month | Salary\n1 | 3 | 90\n1 | 2 | 50\n1 | 1 | 20\n2 | 1 | 20",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "id | month | Salary\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-35",
@@ -938,7 +1350,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT strftime('%Y-%m', trans_date) AS month, country, COUNT(id) AS trans_count, SUM(CASE WHEN state = 'approved' THEN 1 ELSE 0 END) AS approved_count, SUM(amount) AS trans_total_amount, SUM(CASE WHEN state = 'approved' THEN amount ELSE 0 END) AS approved_total_amount FROM Transactions GROUP BY month, country;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "month | country | trans_count | approved_count | trans_total_amount | approved_total_amount\n2018-12 | US | 2 | 1 | 3000 | 1000\n2019-01 | DE | 1 | 1 | 2000 | 2000\n2019-01 | US | 1 | 1 | 2000 | 2000",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "month | country | trans_count | approved_count | trans_total_amount | approved_total_amount\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-36",
@@ -962,7 +1386,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT ROUND(100.0 * SUM(CASE WHEN order_date = customer_pref_delivery_date THEN 1 ELSE 0 END) / COUNT(*), 2) AS immediate_percentage FROM Delivery;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "immediate_percentage\n50.0",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "immediate_percentage\nNULL",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-37",
@@ -986,7 +1422,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "WITH RunningWeight AS (SELECT person_name, SUM(weight) OVER (ORDER BY turn) as total FROM Queue) SELECT person_name FROM RunningWeight WHERE total <= 1000 ORDER BY total DESC LIMIT 1;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "person_name\nAlex",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "person_name\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-38",
@@ -1010,7 +1458,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT u.user_id AS buyer_id, u.join_date, COUNT(o.order_id) AS orders_in_2019 FROM Users u LEFT JOIN Orders o ON u.user_id = o.buyer_id AND strftime('%Y', o.order_date) = '2019' GROUP BY u.user_id, u.join_date;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "buyer_id | join_date | orders_in_2019\n1 | 2018-01-01 | 1\n2 | 2018-02-09 | 1\n3 | 2019-01-19 | 0",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "buyer_id | join_date | orders_in_2019\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-39",
@@ -1034,7 +1494,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT user_id, UPPER(SUBSTR(name, 1, 1)) || LOWER(SUBSTR(name, 2)) AS name FROM Users ORDER BY user_id;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "user_id | name\n1 | Alice\n2 | Bob",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "user_id | name\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-40",
@@ -1058,7 +1530,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT patient_id, patient_name, conditions FROM Patients WHERE conditions LIKE 'DIAB1%' OR conditions LIKE '% DIAB1%';",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "patient_id | patient_name | conditions\n3 | Bob | DIAB100 MYOP\n4 | George | ACNE DIAB100",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "patient_id | patient_name | conditions\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-41",
@@ -1082,7 +1566,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT u.name, COALESCE(SUM(r.distance), 0) AS travelled_distance FROM Users u LEFT JOIN Rides r ON u.id = r.user_id GROUP BY u.id, u.name ORDER BY travelled_distance DESC, u.name ASC;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "name | travelled_distance\nBob | 317\nAlex | 222\nAlice | 220",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "name | travelled_distance\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-42",
@@ -1106,7 +1602,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT u.name, SUM(t.amount) AS balance FROM Users u JOIN Transactions t ON u.account = t.account GROUP BY u.account, u.name HAVING SUM(t.amount) > 10000;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "name | balance\nAlice | 14000",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "name | balance\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-43",
@@ -1130,7 +1638,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT p.product_id, p.product_name FROM Product p JOIN Sales s ON p.product_id = s.product_id GROUP BY p.product_id, p.product_name HAVING MIN(s.sale_date) >= '2019-01-01' AND MAX(s.sale_date) <= '2019-03-31';",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "product_id | product_name\n1 | S8",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "product_id | product_name\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-44",
@@ -1154,7 +1674,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT user_id, COUNT(follower_id) AS followers_count FROM Followers GROUP BY user_id ORDER BY user_id;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "user_id | followers_count\n0 | 1\n1 | 1\n2 | 2",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "user_id | followers_count\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-45",
@@ -1178,7 +1710,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT date_id, make_name, COUNT(DISTINCT lead_id) AS unique_leads, COUNT(DISTINCT partner_id) AS unique_partners FROM DailySales GROUP BY date_id, make_name;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "date_id | make_name | unique_leads | unique_partners\n2020-12-7 | honda | 1 | 1\n2020-12-7 | toyota | 1 | 1\n2020-12-8 | toyota | 2 | 3",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "date_id | make_name | unique_leads | unique_partners\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-46",
@@ -1202,7 +1746,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT user_id, name, mail FROM Users WHERE mail LIKE '%@learningx.com';",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "user_id | name | mail\n1 | Winston | winston@learningx.com\n3 | Annabelle | bella-@learningx.com",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "user_id | name | mail\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-47",
@@ -1226,7 +1782,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT actor_id, director_id FROM ActorDirector GROUP BY actor_id, director_id HAVING COUNT(*) >= 3;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "actor_id | director_id\n1 | 1",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "actor_id | director_id\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-48",
@@ -1250,7 +1818,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT employee_id, department_id FROM Employee WHERE primary_flag = 'Y' OR employee_id IN (SELECT employee_id FROM Employee GROUP BY employee_id HAVING COUNT(*) = 1);",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "employee_id | department_id\n1 | 1\n2 | 1\n3 | 3\n4 | 3",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "employee_id | department_id\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-49",
@@ -1274,7 +1854,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT m.employee_id, m.name, COUNT(e.employee_id) AS reports_count, ROUND(AVG(e.age)) AS average_age FROM Employees m JOIN Employees e ON m.employee_id = e.reports_to GROUP BY m.employee_id, m.name ORDER BY m.employee_id;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "employee_id | name | reports_count | average_age\n9 | Hercy | 2 | 39.0",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "employee_id | name | reports_count | average_age\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-50",
@@ -1298,7 +1890,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT id, CASE WHEN x + y > z AND x + z > y AND y + z > x THEN 'Valid' ELSE 'Invalid' END AS status FROM Sides;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "id | status\n1 | Valid\n2 | Invalid\n3 | Valid",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "id | status\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-51",
@@ -1322,7 +1926,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT sell_date, COUNT(DISTINCT product) AS num_sold, GROUP_CONCAT(DISTINCT product) AS products FROM Activities GROUP BY sell_date ORDER BY sell_date;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "sell_date | num_sold | products\n2020-05-30 | 2 | Headphone,Basketball\n2020-06-01 | 2 | Pencil,Bible\n2020-06-02 | 1 | Mask",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "sell_date | num_sold | products\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-52",
@@ -1346,7 +1962,19 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT id, SUM(CASE WHEN month = 'Jan' THEN revenue ELSE NULL END) AS Jan_Revenue, SUM(CASE WHEN month = 'Feb' THEN revenue ELSE NULL END) AS Feb_Revenue, SUM(CASE WHEN month = 'Mar' THEN revenue ELSE NULL END) AS Mar_Revenue FROM Department GROUP BY id;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "id | Jan_Revenue | Feb_Revenue | Mar_Revenue\n1 | 8000 | 7000 | 6000\n2 | 9000 | NULL | NULL\n3 | NULL | 10000 | NULL",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "id | Jan_Revenue | Feb_Revenue | Mar_Revenue\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-53",
@@ -1370,12 +1998,25 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT DISTINCT author_id AS id FROM Views WHERE author_id = viewer_id ORDER BY id ASC;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "id\n7",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "id\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-54",
     "title": "Customer Who Visited but Did Not Make Any Transactions",
     "track": "sql",
+    "analystPrep": true,
     "difficulty": "Easy",
     "topic": "Joins & Subqueries",
     "description": "Find the IDs of the users who visited without making any transactions and the number of times they made these types of visits.",
@@ -1394,12 +2035,25 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "SELECT v.customer_id, COUNT(v.visit_id) AS count_no_trans FROM Visits v LEFT JOIN Transactions t ON v.visit_id = t.visit_id WHERE t.transaction_id IS NULL GROUP BY v.customer_id;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "customer_id | count_no_trans\n30 | 1\n54 | 2\n96 | 1",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "customer_id | count_no_trans\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   },
   {
     "id": "sql-55",
     "title": "Restaurant Growth (7-Day Moving Average)",
     "track": "sql",
+    "analystPrep": true,
     "difficulty": "Medium",
     "topic": "Window Functions",
     "description": "Compute the moving average of how much the customer paid in a 7 days window (current day + 6 days before).",
@@ -1418,6 +2072,18 @@ export const sqlQuestions = [
       "Consider standard GROUP BY, WINDOW functions, or subquery filtering."
     ],
     "solution": "WITH Daily AS (SELECT visited_on, SUM(amount) AS amount FROM Customer GROUP BY visited_on), Moving AS (SELECT visited_on, SUM(amount) OVER (ORDER BY visited_on ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS amount, ROUND(AVG(amount) OVER (ORDER BY visited_on ROWS BETWEEN 6 PRECEDING AND CURRENT ROW), 2) AS average_amount, ROW_NUMBER() OVER (ORDER BY visited_on) AS rn FROM Daily) SELECT visited_on, amount, average_amount FROM Moving WHERE rn >= 7;",
-    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite."
+    "explanation": "Evaluated using in-browser WebAssembly SQLite test suite.",
+    "examples": [
+      {
+        "input": "Run the query on the sample rows in the tables above.",
+        "output": "visited_on | amount | average_amount\n2019-01-07 | 860 | 122.86\n2019-01-08 | 840 | 120.0",
+        "explanation": "Result of the reference query on the supplied sample data."
+      },
+      {
+        "input": "Run the query after removing all rows from the tables.",
+        "output": "visited_on | amount | average_amount\n(no rows)",
+        "explanation": "Shows how the query behaves when the tables contain no rows."
+      }
+    ]
   }
 ];

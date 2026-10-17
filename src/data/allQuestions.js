@@ -1,11 +1,15 @@
 import { programmingQuestions } from './programmingQuestions.js';
 import { dsaQuestions } from './dsaQuestions.js';
 import { sqlQuestions } from './sqlQuestions.js';
+import { analystSqlQuestions } from './analystSqlQuestions.js';
+import { analystSqlAdvancedQuestions } from './analystSqlAdvancedQuestions.js';
 
 export const allQuestions = [
   ...programmingQuestions,
   ...dsaQuestions,
-  ...sqlQuestions
+  ...sqlQuestions,
+  ...analystSqlQuestions,
+  ...analystSqlAdvancedQuestions
 ];
 
 export const getQuestionById = (id) => {

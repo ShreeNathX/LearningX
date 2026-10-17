@@ -68,6 +68,10 @@ export const programmingQuestions = [
       {
         "input": "s = 'A man, a plan, a canal: Panama'",
         "output": "True"
+      },
+      {
+        "input": "s = 'race a car'",
+        "output": "False"
       }
     ],
     "constraints": [
@@ -112,6 +116,10 @@ export const programmingQuestions = [
     "topic": "Math & Logic",
     "description": "Calculate the factorial of a non-negative integer n. Factorial of 0 is defined as 1.",
     "examples": [
+      {
+        "input": "n = 5",
+        "output": "120"
+      },
       {
         "input": "n = 5",
         "output": "120"
@@ -162,6 +170,10 @@ export const programmingQuestions = [
       {
         "input": "n = 4",
         "output": "3"
+      },
+      {
+        "input": "n = 1",
+        "output": "1"
       }
     ],
     "constraints": [
@@ -215,6 +227,10 @@ export const programmingQuestions = [
       {
         "input": "s = 'Hello World'",
         "output": "{'vowels': 3, 'consonants': 7}"
+      },
+      {
+        "input": "s = 'LearningX 2026!'",
+        "output": "{'vowels': 3, 'consonants': 6}"
       }
     ],
     "constraints": [
@@ -271,6 +287,10 @@ export const programmingQuestions = [
       {
         "input": "[1]",
         "output": "False"
+      },
+      {
+        "input": "n = 2",
+        "output": "True"
       }
     ],
     "constraints": [
@@ -331,6 +351,10 @@ export const programmingQuestions = [
       {
         "input": "[[12, 35, 1, 10, 34, 1]]",
         "output": "34"
+      },
+      {
+        "input": "nums = [10, 10, 10]",
+        "output": "-1"
       }
     ],
     "constraints": [
@@ -393,6 +417,10 @@ export const programmingQuestions = [
       {
         "input": "['anagram', 'nagaram']",
         "output": "True"
+      },
+      {
+        "input": "s = 'rat', t = 'car'",
+        "output": "False"
       }
     ],
     "constraints": [
@@ -444,6 +472,10 @@ export const programmingQuestions = [
       {
         "input": "[48, 18]",
         "output": "6"
+      },
+      {
+        "input": "a = 101, b = 10",
+        "output": "1"
       }
     ],
     "constraints": [
@@ -495,6 +527,10 @@ export const programmingQuestions = [
       {
         "input": "[4, 6]",
         "output": "12"
+      },
+      {
+        "input": "a = 5, b = 7",
+        "output": "35"
       }
     ],
     "constraints": [
@@ -546,6 +582,10 @@ export const programmingQuestions = [
       {
         "input": "[['a', 'b', 'b', 'c', 'c', 'c']]",
         "output": "{'a': 1, 'b': 2, 'c': 3}"
+      },
+      {
+        "input": "arr = ['apple', 'banana', 'apple']",
+        "output": "{'apple': 2, 'banana': 1}"
       }
     ],
     "constraints": [
@@ -606,6 +646,10 @@ export const programmingQuestions = [
       {
         "input": "[[1, 3, 5], [2, 4, 6]]",
         "output": "[1, 2, 3, 4, 5, 6]"
+      },
+      {
+        "input": "arr1 = [1], arr2 = []",
+        "output": "[1]"
       }
     ],
     "constraints": [
@@ -680,6 +724,10 @@ export const programmingQuestions = [
       {
         "input": "[[1, 2, 2, 3, 4, 4, 1]]",
         "output": "[1, 2, 3, 4]"
+      },
+      {
+        "input": "arr = ['a', 'b', 'a']",
+        "output": "['a', 'b']"
       }
     ],
     "constraints": [
@@ -742,6 +790,10 @@ export const programmingQuestions = [
       {
         "input": "['the quick brown fox']",
         "output": "The Quick Brown Fox"
+      },
+      {
+        "input": "s = 'hello WORLD'",
+        "output": "'Hello World'"
       }
     ],
     "constraints": [
@@ -784,6 +836,10 @@ export const programmingQuestions = [
       {
         "input": "[38]",
         "output": "2"
+      },
+      {
+        "input": "n = 0",
+        "output": "0"
       }
     ],
     "constraints": [
@@ -832,6 +888,10 @@ export const programmingQuestions = [
       {
         "input": "[5]",
         "output": "['1', '2', 'Fizz', '4', 'Buzz']"
+      },
+      {
+        "input": "n = 3",
+        "output": "['1', '2', 'Fizz']"
       }
     ],
     "constraints": [
@@ -883,6 +943,10 @@ export const programmingQuestions = [
     "examples": [
       {
         "input": "[[3, 0, 1]]",
+        "output": "2"
+      },
+      {
+        "input": "nums = [0, 1]",
         "output": "2"
       }
     ],
@@ -949,6 +1013,10 @@ export const programmingQuestions = [
       {
         "input": "[153]",
         "output": "True"
+      },
+      {
+        "input": "n = 370",
+        "output": "True"
       }
     ],
     "constraints": [
@@ -997,6 +1065,10 @@ export const programmingQuestions = [
       {
         "input": "[[1, 2, 3, 4, 5, 6, 7], 3]",
         "output": "[5, 6, 7, 1, 2, 3, 4]"
+      },
+      {
+        "input": "nums = [-1, -100, 3, 99], k = 2",
+        "output": "[3, 99, -1, -100]"
       }
     ],
     "constraints": [
@@ -1067,6 +1139,10 @@ export const programmingQuestions = [
       {
         "input": "['()[]{}']",
         "output": "True"
+      },
+      {
+        "input": "s = '(]'",
+        "output": "False"
       }
     ],
     "constraints": [
@@ -1121,6 +1197,10 @@ export const programmingQuestions = [
       {
         "input": "['aabcccccaaa']",
         "output": "a2b1c5a3"
+      },
+      {
+        "input": "s = 'abcdef'",
+        "output": "'abcdef'"
       }
     ],
     "constraints": [
@@ -1162,6 +1242,10 @@ export const programmingQuestions = [
     "examples": [
       {
         "input": "[1]",
+        "output": "True"
+      },
+      {
+        "input": "n = 16",
         "output": "True"
       }
     ],
@@ -1217,6 +1301,10 @@ export const programmingQuestions = [
       {
         "input": "[11]",
         "output": "3"
+      },
+      {
+        "input": "n = 128",
+        "output": "1"
       }
     ],
     "constraints": [
@@ -1265,6 +1353,10 @@ export const programmingQuestions = [
       {
         "input": "[[2, 2, 1]]",
         "output": "1"
+      },
+      {
+        "input": "nums = [4, 1, 2, 1, 2]",
+        "output": "4"
       }
     ],
     "constraints": [
@@ -1325,6 +1417,10 @@ export const programmingQuestions = [
       {
         "input": "['1010']",
         "output": "10"
+      },
+      {
+        "input": "b = '1111'",
+        "output": "15"
       }
     ],
     "constraints": [
@@ -1373,6 +1469,10 @@ export const programmingQuestions = [
       {
         "input": "[10]",
         "output": "1010"
+      },
+      {
+        "input": "n = 15",
+        "output": "'1111'"
       }
     ],
     "constraints": [
@@ -1421,6 +1521,10 @@ export const programmingQuestions = [
       {
         "input": "[[1, 2, 2, 1], [2, 2]]",
         "output": "[2]"
+      },
+      {
+        "input": "nums1 = [4, 9, 5], nums2 = [9, 4, 9, 8, 4]",
+        "output": "[4, 9]"
       }
     ],
     "constraints": [
@@ -1488,6 +1592,10 @@ export const programmingQuestions = [
       {
         "input": "['III']",
         "output": "3"
+      },
+      {
+        "input": "s = 'LVIII'",
+        "output": "58"
       }
     ],
     "constraints": [
@@ -1536,6 +1644,10 @@ export const programmingQuestions = [
       {
         "input": "[3]",
         "output": "III"
+      },
+      {
+        "input": "num = 58",
+        "output": "'LVIII'"
       }
     ],
     "constraints": [
@@ -1584,6 +1696,10 @@ export const programmingQuestions = [
       {
         "input": "['hello world from python coding']",
         "output": "Hello world From python Coding"
+      },
+      {
+        "input": "s = 'ONE two THREE four'",
+        "output": "'One two Three four'"
       }
     ],
     "constraints": [
@@ -1626,6 +1742,10 @@ export const programmingQuestions = [
       {
         "input": "[3]",
         "output": "[1, 3, 3, 1]"
+      },
+      {
+        "input": "rowIndex = 0",
+        "output": "[1]"
       }
     ],
     "constraints": [
@@ -1684,6 +1804,10 @@ export const programmingQuestions = [
       {
         "input": "[2000]",
         "output": "True"
+      },
+      {
+        "input": "year = 1900",
+        "output": "False"
       }
     ],
     "constraints": [
@@ -1738,6 +1862,10 @@ export const programmingQuestions = [
       {
         "input": "['The quick brown fox jumped over the lazy dog']",
         "output": "jumped"
+      },
+      {
+        "input": "s = 'Python is amazing'",
+        "output": "'amazing'"
       }
     ],
     "constraints": [
@@ -1780,6 +1908,10 @@ export const programmingQuestions = [
       {
         "input": "[[[1, 2, 3], [4, 5, 6]]]",
         "output": "[[1, 4], [2, 5], [3, 6]]"
+      },
+      {
+        "input": "matrix = [[1], [2], [3]]",
+        "output": "[[1, 2, 3]]"
       }
     ],
     "constraints": [
@@ -1862,6 +1994,10 @@ export const programmingQuestions = [
       {
         "input": "[[[1, [2]], [3, [4, [5]]]]]",
         "output": "[1, 2, 3, 4, 5]"
+      },
+      {
+        "input": "nested = [1, 2, 3]",
+        "output": "[1, 2, 3]"
       }
     ],
     "constraints": [
@@ -1934,6 +2070,10 @@ export const programmingQuestions = [
       {
         "input": "[28]",
         "output": "True"
+      },
+      {
+        "input": "n = 6",
+        "output": "True"
       }
     ],
     "constraints": [
@@ -1988,6 +2128,10 @@ export const programmingQuestions = [
       {
         "input": "[['eat', 'tea', 'tan', 'ate', 'nat', 'bat']]",
         "output": "[['ate', 'eat', 'tea'], ['bat'], ['nat', 'tan']]"
+      },
+      {
+        "input": "strs = ['', '']",
+        "output": "[['', '']]"
       }
     ],
     "constraints": [
@@ -2058,6 +2202,10 @@ export const programmingQuestions = [
       {
         "input": "['banana', 'an']",
         "output": "2"
+      },
+      {
+        "input": "s = 'aaaaa', sub = 'aa'",
+        "output": "2"
       }
     ],
     "constraints": [
@@ -2102,6 +2250,10 @@ export const programmingQuestions = [
       {
         "input": "[[1, 5, 10, 20, 40, 80], [6, 7, 20, 80, 100], [3, 4, 15, 20, 30, 70, 80, 120]]",
         "output": "[20, 80]"
+      },
+      {
+        "input": "a = [1, 2], b = [2, 3], c = [0, 2]",
+        "output": "[2]"
       }
     ],
     "constraints": [
@@ -2184,6 +2336,10 @@ export const programmingQuestions = [
       {
         "input": "['leetcode']",
         "output": "0"
+      },
+      {
+        "input": "s = 'loveleetcode'",
+        "output": "2"
       }
     ],
     "constraints": [
@@ -2232,6 +2388,10 @@ export const programmingQuestions = [
       {
         "input": "['abc', 'ahbgdc']",
         "output": "True"
+      },
+      {
+        "input": "s = 'axc', t = 'ahbgdc'",
+        "output": "False"
       }
     ],
     "constraints": [
@@ -2276,6 +2436,10 @@ export const programmingQuestions = [
       {
         "input": "[[[1, 2, 3], [4, 5, 6], [7, 8, 9]]]",
         "output": "25"
+      },
+      {
+        "input": "mat = [[1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1]]",
+        "output": "8"
       }
     ],
     "constraints": [
@@ -2359,6 +2523,10 @@ export const programmingQuestions = [
       {
         "input": "[10]",
         "output": "[2, 3, 5, 7]"
+      },
+      {
+        "input": "n = 20",
+        "output": "[2, 3, 5, 7, 11, 13, 17, 19]"
       }
     ],
     "constraints": [
@@ -2423,6 +2591,10 @@ export const programmingQuestions = [
       {
         "input": "['Hello World']",
         "output": "5"
+      },
+      {
+        "input": "s = '   fly me   to   the moon  '",
+        "output": "4"
       }
     ],
     "constraints": [
@@ -2471,6 +2643,10 @@ export const programmingQuestions = [
       {
         "input": "[[1, 2, 3]]",
         "output": "[1, 2, 4]"
+      },
+      {
+        "input": "digits = [4, 3, 2, 1]",
+        "output": "[4, 3, 2, 2]"
       }
     ],
     "constraints": [
@@ -2542,6 +2718,10 @@ export const programmingQuestions = [
       {
         "input": "[2.0, 10]",
         "output": "1024.0"
+      },
+      {
+        "input": "x = 2.1, n = 3",
+        "output": "9.261"
       }
     ],
     "constraints": [
@@ -2593,6 +2773,10 @@ export const programmingQuestions = [
       {
         "input": "['egg', 'add']",
         "output": "True"
+      },
+      {
+        "input": "s = 'foo', t = 'bar'",
+        "output": "False"
       }
     ],
     "constraints": [
@@ -2644,6 +2828,10 @@ export const programmingQuestions = [
       {
         "input": "[[3, 2, 3]]",
         "output": "3"
+      },
+      {
+        "input": "nums = [2, 2, 1, 1, 1, 2, 2]",
+        "output": "2"
       }
     ],
     "constraints": [
@@ -2698,6 +2886,10 @@ export const programmingQuestions = [
       {
         "input": "[[0, 1, 0, 3, 12]]",
         "output": "[1, 3, 12, 0, 0]"
+      },
+      {
+        "input": "nums = [0]",
+        "output": "[0]"
       }
     ],
     "constraints": [
@@ -2756,6 +2948,10 @@ export const programmingQuestions = [
       {
         "input": "['abcd', 'abcde']",
         "output": "e"
+      },
+      {
+        "input": "s = '', t = 'y'",
+        "output": "'y'"
       }
     ],
     "constraints": [
@@ -2800,6 +2996,10 @@ export const programmingQuestions = [
       {
         "input": "[6]",
         "output": "8"
+      },
+      {
+        "input": "n = 1",
+        "output": "0"
       }
     ],
     "constraints": [
@@ -2848,6 +3048,10 @@ export const programmingQuestions = [
       {
         "input": "[[1, 1, 0, 1, 1, 1]]",
         "output": "3"
+      },
+      {
+        "input": "nums = [1, 0, 1, 1, 0, 1]",
+        "output": "2"
       }
     ],
     "constraints": [
@@ -2904,6 +3108,10 @@ export const programmingQuestions = [
       {
         "input": "['the sky is blue']",
         "output": "blue is sky the"
+      },
+      {
+        "input": "s = '  hello world  '",
+        "output": "'world hello'"
       }
     ],
     "constraints": [
@@ -2952,6 +3160,10 @@ export const programmingQuestions = [
       {
         "input": "['abba', 'dog cat cat dog']",
         "output": "True"
+      },
+      {
+        "input": "pattern = 'abba', s = 'dog cat cat fish'",
+        "output": "False"
       }
     ],
     "constraints": [
@@ -3003,6 +3215,10 @@ export const programmingQuestions = [
       {
         "input": "[[1, 2, 2, 1], [2, 2]]",
         "output": "[2, 2]"
+      },
+      {
+        "input": "nums1 = [4, 9, 5], nums2 = [9, 4, 9, 8, 4]",
+        "output": "[4, 9]"
       }
     ],
     "constraints": [
@@ -3071,6 +3287,10 @@ export const programmingQuestions = [
       {
         "input": "[[0, 1, 3, 50, 75], 0, 99]",
         "output": "['2', '4->49', '51->74', '76->99']"
+      },
+      {
+        "input": "nums = [], lower = 1, upper = 1",
+        "output": "['1']"
       }
     ],
     "constraints": [
@@ -3130,6 +3350,10 @@ export const programmingQuestions = [
       {
         "input": "['aba']",
         "output": "True"
+      },
+      {
+        "input": "s = 'abca'",
+        "output": "True"
       }
     ],
     "constraints": [
@@ -3178,6 +3402,10 @@ export const programmingQuestions = [
       {
         "input": "[[1, 2, 3, 1]]",
         "output": "2"
+      },
+      {
+        "input": "nums = [1, 2, 1, 3, 5, 6, 4]",
+        "output": "5"
       }
     ],
     "constraints": [
@@ -3233,6 +3461,10 @@ export const programmingQuestions = [
       {
         "input": "[[-4, -1, 0, 3, 10]]",
         "output": "[0, 1, 9, 16, 100]"
+      },
+      {
+        "input": "nums = [-7, -3, 2, 3, 11]",
+        "output": "[4, 9, 9, 49, 121]"
       }
     ],
     "constraints": [
@@ -3299,6 +3531,10 @@ export const programmingQuestions = [
       {
         "input": "[[1, 2, 2, 3]]",
         "output": "True"
+      },
+      {
+        "input": "nums = [6, 5, 4, 4]",
+        "output": "True"
       }
     ],
     "constraints": [
@@ -3361,6 +3597,10 @@ export const programmingQuestions = [
       {
         "input": "['thequickbrownfoxjumpsoverthelazydog']",
         "output": "True"
+      },
+      {
+        "input": "sentence = 'learningx'",
+        "output": "False"
       }
     ],
     "constraints": [
@@ -3403,6 +3643,10 @@ export const programmingQuestions = [
       {
         "input": "[1, 22]",
         "output": "[1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 15, 22]"
+      },
+      {
+        "input": "left = 47, right = 85",
+        "output": "[48, 55, 66, 77]"
       }
     ],
     "constraints": [
@@ -3466,6 +3710,10 @@ export const programmingQuestions = [
       {
         "input": "['aA', 'aAAbbbb']",
         "output": "3"
+      },
+      {
+        "input": "jewels = 'z', stones = 'ZZ'",
+        "output": "0"
       }
     ],
     "constraints": [
@@ -3510,6 +3758,10 @@ export const programmingQuestions = [
       {
         "input": "[2]",
         "output": "[0, 1, 1]"
+      },
+      {
+        "input": "n = 5",
+        "output": "[0, 1, 1, 2, 1, 2]"
       }
     ],
     "constraints": [
@@ -3563,6 +3815,10 @@ export const programmingQuestions = [
       {
         "input": "[[4, 3, 2, 7, 8, 2, 3, 1]]",
         "output": "[5, 6]"
+      },
+      {
+        "input": "nums = [1, 1]",
+        "output": "[2]"
       }
     ],
     "constraints": [
@@ -3622,6 +3878,10 @@ export const programmingQuestions = [
       {
         "input": "[['Hello', 'Alaska', 'Dad', 'Peace']]",
         "output": "['Alaska', 'Dad']"
+      },
+      {
+        "input": "words = ['omk']",
+        "output": "[]"
       }
     ],
     "constraints": [
@@ -3674,6 +3934,10 @@ export const programmingQuestions = [
       {
         "input": "[[1, 0, 0, 0, 1], 1]",
         "output": "True"
+      },
+      {
+        "input": "flowerbed = [1, 0, 0, 0, 1], n = 2",
+        "output": "False"
       }
     ],
     "constraints": [
@@ -3730,6 +3994,10 @@ export const programmingQuestions = [
       {
         "input": "[['5', '2', 'C', 'D', '+']]",
         "output": "30"
+      },
+      {
+        "input": "operations = ['5', '-2', '4', 'C', 'D', '9', '+', '+']",
+        "output": "27"
       }
     ],
     "constraints": [
@@ -3787,6 +4055,10 @@ export const programmingQuestions = [
       {
         "input": "[[1, 2, 2, 3, 1]]",
         "output": "2"
+      },
+      {
+        "input": "nums = [1, 2, 2, 3, 1, 4, 2]",
+        "output": "6"
       }
     ],
     "constraints": [
@@ -3843,6 +4115,10 @@ export const programmingQuestions = [
       {
         "input": "[[1, 3, 5, 4, 7]]",
         "output": "3"
+      },
+      {
+        "input": "nums = [2, 2, 2, 2, 2]",
+        "output": "1"
       }
     ],
     "constraints": [
@@ -3897,6 +4173,10 @@ export const programmingQuestions = [
       {
         "input": "['I speak Goat Latin']",
         "output": "Imaa peaksmaaa oatGmaaaa atinLmaaaaa"
+      },
+      {
+        "input": "sentence = 'The quick brown fox'",
+        "output": "'heTmaa uickqmaaa rownbmaaaa oxfmaaaaa'"
       }
     ],
     "constraints": [
@@ -3939,6 +4219,10 @@ export const programmingQuestions = [
       {
         "input": "['abc', 'pqr']",
         "output": "apbqcr"
+      },
+      {
+        "input": "s1 = 'ab', s2 = 'cd'",
+        "output": "'acbd'"
       }
     ],
     "constraints": [
@@ -3983,6 +4267,10 @@ export const programmingQuestions = [
       {
         "input": "['Admin@123']",
         "output": "True"
+      },
+      {
+        "input": "p = 'password'",
+        "output": "False"
       }
     ],
     "constraints": [
@@ -4031,6 +4319,10 @@ export const programmingQuestions = [
       {
         "input": "[[4, 3, 2, 7, 8, 2, 3, 1]]",
         "output": "[2, 3]"
+      },
+      {
+        "input": "nums = [1, 1, 2]",
+        "output": "[1]"
       }
     ],
     "constraints": [
@@ -4091,6 +4383,10 @@ export const programmingQuestions = [
       {
         "input": "[[1, 2, 3, 4]]",
         "output": "[24, 12, 8, 6]"
+      },
+      {
+        "input": "nums = [-1, 1, 0, -3, 3]",
+        "output": "[0, 0, 9, 0, 0]"
       }
     ],
     "constraints": [

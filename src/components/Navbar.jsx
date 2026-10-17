@@ -1,21 +1,14 @@
 import React, { useState } from 'react';
 import { 
-  Code2, 
   Flame, 
   CheckCircle2, 
-  Bookmark, 
   Download, 
   Upload, 
   Sparkles, 
-  HelpCircle,
-  Database,
-  GitMerge
 } from 'lucide-react';
 import { exportDataAsJson, importDataFromJson, calculateStreak } from '../services/storage';
 
 export function Navbar({ 
-  currentTrack, 
-  onSelectTrack, 
   userData, 
   onUserDataUpdate,
   totalQuestions,
@@ -44,7 +37,7 @@ export function Navbar({
             setImportStatus('');
           }, 1200);
         } else {
-          setImportStatus('Failed to import: Invalid format.');
+          setImportStatus('Could not import this backup. Check its format and available browser storage.');
         }
       }
     };
@@ -66,10 +59,7 @@ export function Navbar({
           <div className="min-w-0">
             <div className="flex items-center gap-1.5">
               <span className="text-base sm:text-lg font-bold tracking-tight text-white group-hover:text-cyan-400 transition-colors">
-                Learning<span className="text-cyan-400">X</span>
-              </span>
-              <span className="hidden sm:inline text-[10px] uppercase font-semibold px-1.5 py-0.5 rounded bg-cyan-950/60 text-cyan-400 border border-cyan-800/50">
-                PRO
+                LearningX
               </span>
             </div>
             <p className="text-[11px] text-slate-400 -mt-1 hidden sm:block">
@@ -77,33 +67,6 @@ export function Navbar({
             </p>
           </div>
         </div>
-
-        {/* Quick Track Switcher */}
-        <nav className="hidden md:flex items-center gap-1 bg-slate-900/90 p-1 rounded-xl border border-slate-800/80">
-          {[
-            { id: 'all', label: 'All', icon: Sparkles },
-            { id: 'python', label: 'Python', icon: Code2 },
-            { id: 'dsa', label: 'DSA', icon: GitMerge },
-            { id: 'sql', label: 'SQL', icon: Database },
-          ].map((item) => {
-            const Icon = item.icon;
-            const active = currentTrack === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => onSelectTrack(item.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  active
-                    ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 shadow-sm'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
-                }`}
-              >
-                <Icon className="w-3.5 h-3.5" />
-                {item.label}
-              </button>
-            );
-          })}
-        </nav>
 
         {/* User Stats & Utilities */}
         <div className="flex flex-shrink-0 items-center gap-1.5 sm:gap-3">

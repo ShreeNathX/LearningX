@@ -1,12 +1,25 @@
 const STORAGE_KEY = 'learningx_user_data_v1';
 
-const defaultData = {
-  solved: {}, // { [problemId]: { solvedAt: timestamp, language: 'python' } }
-  starred: [], // [problemId, ...]
-  savedCode: {}, // { [`${problemId}_${language}`]: code }
-  notes: {}, // { [problemId]: noteText }
-  history: [], // [{ problemId, timestamp, status }]
-  streakDates: [] // ['2026-09-14', ...]
+const createDefaultData = () => ({
+  solved: {},
+  starred: [],
+  savedCode: {},
+  notes: {},
+  analystStatus: {},
+  history: [],
+  streakDates: []
+});
+
+const isRecord = (value) => value && typeof value === 'object' && !Array.isArray(value);
+const safeRecord = (value) => Object.fromEntries(
+  Object.entries(isRecord(value) ? value : {}).filter(([key]) =>
+    key !== '__proto__' && key !== 'constructor' && key !== 'prototype'
+  )
+);
+const isValidDateKey = (date) => {
+  if (typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return false;
+  const [year, month, day] = date.split('-').map(Number);
+  return getLocalDateString(new Date(year, month - 1, day)) === date;
 };
 
 /**
@@ -22,37 +35,42 @@ export function getLocalDateString(dateObj = new Date()) {
 export function loadUserData() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return defaultData;
+    if (!raw) return createDefaultData();
     const parsed = JSON.parse(raw);
+    if (!isRecord(parsed)) return createDefaultData();
     return {
-      solved: parsed.solved || {},
-      starred: Array.isArray(parsed.starred) ? parsed.starred : [],
-      savedCode: parsed.savedCode || {},
-      notes: parsed.notes || {},
-      history: Array.isArray(parsed.history) ? parsed.history : [],
-      streakDates: Array.isArray(parsed.streakDates) ? parsed.streakDates : []
+      solved: safeRecord(parsed.solved),
+      starred: Array.isArray(parsed.starred) ? parsed.starred.filter((id) => typeof id === 'string') : [],
+      savedCode: Object.fromEntries(Object.entries(safeRecord(parsed.savedCode)).filter(([, code]) => typeof code === 'string')),
+      notes: Object.fromEntries(Object.entries(safeRecord(parsed.notes)).filter(([, note]) => typeof note === 'string')),
+      analystStatus: Object.fromEntries(Object.entries(safeRecord(parsed.analystStatus)).filter(([, status]) => status === 'review' || status === 'known')),
+      history: Array.isArray(parsed.history) ? parsed.history.filter((entry) => isRecord(entry)) : [],
+      streakDates: Array.isArray(parsed.streakDates) ? parsed.streakDates.filter(isValidDateKey) : []
     };
   } catch (e) {
     console.warn('Failed to parse user data from localStorage, falling back to defaults:', e);
-    return defaultData;
+    return createDefaultData();
   }
 }
 
 export function saveUserData(data) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    return true;
   } catch (e) {
     if (e.name === 'QuotaExceededError' || e.code === 22) {
-      console.warn('localStorage quota exceeded. Trimming older code history to free space...');
+      console.warn('localStorage quota exceeded. Retrying without older activity history.');
       try {
-        // Trim history and cache
-        data.history = (data.history || []).slice(0, 10);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        const compactData = { ...data, history: (data.history || []).slice(0, 10) };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(compactData));
+        return true;
       } catch (innerErr) {
         console.error('Critical storage quota failure:', innerErr);
+        return false;
       }
     } else {
       console.error('Failed to save user data:', e);
+      return false;
     }
   }
 }
@@ -81,12 +99,11 @@ export function markProblemSolved(problemId, language) {
     data.history = data.history.slice(0, 50);
   }
 
-  saveUserData(data);
-  return data;
+  return saveUserData(data);
 }
 
 export function toggleStarProblem(problemId) {
-  if (!problemId) return [];
+  if (!problemId) return false;
   const data = loadUserData();
   const idx = data.starred.indexOf(problemId);
   if (idx >= 0) {
@@ -94,15 +111,15 @@ export function toggleStarProblem(problemId) {
   } else {
     data.starred.push(problemId);
   }
-  saveUserData(data);
-  return data.starred;
+  const saved = saveUserData(data);
+  return saved;
 }
 
 export function saveCode(problemId, language, code) {
-  if (!problemId) return;
+  if (!problemId) return false;
   const data = loadUserData();
   data.savedCode[`${problemId}_${language}`] = code;
-  saveUserData(data);
+  return saveUserData(data);
 }
 
 export function getSavedCode(problemId, language) {
@@ -112,10 +129,18 @@ export function getSavedCode(problemId, language) {
 }
 
 export function saveNote(problemId, note) {
-  if (!problemId) return;
+  if (!problemId) return false;
   const data = loadUserData();
   data.notes[problemId] = note;
-  saveUserData(data);
+  return saveUserData(data);
+}
+
+export function setAnalystQuestionStatus(questionId, status) {
+  if (!questionId || !['review', 'known', null].includes(status)) return false;
+  const data = loadUserData();
+  if (status === null) delete data.analystStatus[questionId];
+  else data.analystStatus[questionId] = status;
+  return saveUserData(data);
 }
 
 export function getNote(problemId) {
@@ -129,21 +154,27 @@ export function calculateStreak(dates) {
   
   // Dedup and sort in descending order
   const sorted = [...new Set(dates)].sort().reverse();
-  const today = getLocalDateString(new Date());
-  const yesterday = getLocalDateString(new Date(Date.now() - 86400000));
+  const todayDate = new Date();
+  const today = getLocalDateString(todayDate);
+  const yesterdayDate = new Date(todayDate);
+  yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+  const yesterday = getLocalDateString(yesterdayDate);
 
   if (sorted[0] !== today && sorted[0] !== yesterday) {
     return 0; // Streak broken
   }
 
   let streak = 1;
-  let curr = new Date(sorted[0].replace(/-/g, '/')); // Use / for safe date parsing
+  const [year, month, day] = sorted[0].split('-').map(Number);
+  let curr = new Date(year, month - 1, day);
 
   for (let i = 1; i < sorted.length; i++) {
-    const prevExpected = getLocalDateString(new Date(curr.getTime() - 86400000));
+    const previousDate = new Date(curr);
+    previousDate.setDate(previousDate.getDate() - 1);
+    const prevExpected = getLocalDateString(previousDate);
     if (sorted[i] === prevExpected) {
       streak++;
-      curr = new Date(prevExpected.replace(/-/g, '/'));
+      curr = previousDate;
     } else {
       break;
     }
@@ -161,7 +192,7 @@ export function exportDataAsJson() {
     a.href = url;
     a.download = `learningx_backup_${getLocalDateString()}.json`;
     a.click();
-    URL.revokeObjectURL(url);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   } catch (err) {
     console.error('Export failure:', err);
     alert('Failed to export data: ' + err.message);
@@ -171,17 +202,32 @@ export function exportDataAsJson() {
 export function importDataFromJson(jsonString) {
   try {
     const parsed = JSON.parse(jsonString);
-    if (parsed && typeof parsed === 'object') {
+    const fieldTypes = {
+      solved: isRecord,
+      starred: Array.isArray,
+      savedCode: isRecord,
+      notes: isRecord,
+      analystStatus: isRecord,
+      history: Array.isArray,
+      streakDates: Array.isArray
+    };
+    const hasValidData = isRecord(parsed) && Object.entries(fieldTypes).some(([key, isValid]) =>
+      Object.hasOwn(parsed, key) && isValid(parsed[key])
+    );
+    const hasInvalidField = isRecord(parsed) && Object.entries(fieldTypes).some(([key, isValid]) =>
+      Object.hasOwn(parsed, key) && !isValid(parsed[key])
+    );
+    if (hasValidData && !hasInvalidField) {
       const sanitized = {
-        solved: parsed.solved && typeof parsed.solved === 'object' ? parsed.solved : {},
-        starred: Array.isArray(parsed.starred) ? parsed.starred : [],
-        savedCode: parsed.savedCode && typeof parsed.savedCode === 'object' ? parsed.savedCode : {},
-        notes: parsed.notes && typeof parsed.notes === 'object' ? parsed.notes : {},
-        history: Array.isArray(parsed.history) ? parsed.history : [],
-        streakDates: Array.isArray(parsed.streakDates) ? parsed.streakDates : []
+        solved: safeRecord(parsed.solved),
+        starred: Array.isArray(parsed.starred) ? parsed.starred.filter((id) => typeof id === 'string') : [],
+        savedCode: Object.fromEntries(Object.entries(safeRecord(parsed.savedCode)).filter(([, code]) => typeof code === 'string')),
+        notes: Object.fromEntries(Object.entries(safeRecord(parsed.notes)).filter(([, note]) => typeof note === 'string')),
+        analystStatus: Object.fromEntries(Object.entries(safeRecord(parsed.analystStatus)).filter(([, status]) => status === 'review' || status === 'known')),
+        history: Array.isArray(parsed.history) ? parsed.history.filter((entry) => isRecord(entry)) : [],
+        streakDates: Array.isArray(parsed.streakDates) ? parsed.streakDates.filter(isValidDateKey) : []
       };
-      saveUserData(sanitized);
-      return true;
+      return saveUserData(sanitized);
     }
   } catch (e) {
     console.error('Invalid JSON file format:', e);

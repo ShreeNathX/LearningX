@@ -24,7 +24,14 @@ self.onmessage = async ({ data }) => {
     py.globals.set('__entry_point__', entryPoint);
     const raw = await py.runPythonAsync(String.raw`
 import copy, io, json, math, sys
-_stdout, _original_stdout = io.StringIO(), sys.stdout
+class _LimitedOutput(io.StringIO):
+    limit = 10000
+    def write(self, value):
+        remaining = max(0, self.limit - self.tell())
+        if remaining:
+            super().write(value[:remaining])
+        return len(value)
+_stdout, _original_stdout = _LimitedOutput(), sys.stdout
 sys.stdout = _stdout
 def normalize(value):
     if isinstance(value, dict): return {str(key): normalize(item) for key, item in sorted(value.items(), key=lambda item: str(item[0]))}
