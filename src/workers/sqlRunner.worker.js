@@ -64,7 +64,7 @@ function compareSqlResults(actual, expected, userQuery) {
   const serializeRow = (row) => JSON.stringify(row.map((value) => value === undefined ? null : value));
   const actualRows = actual.values.map(serializeRow);
   const expectedRows = expected.values.map(serializeRow);
-  if (!/\border\s+by\b/i.test(userQuery)) {
+  if (!hasTopLevelOrderBy(userQuery)) {
     actualRows.sort();
     expectedRows.sort();
   }
@@ -74,4 +74,39 @@ function compareSqlResults(actual, expected, userQuery) {
     }
   }
   return { passed: true, reason: 'All test assertions passed!' };
+}
+
+function hasTopLevelOrderBy(query = '') {
+  let depth = 0;
+  let quote = null;
+  for (let index = 0; index < query.length; index += 1) {
+    const char = query[index];
+    const next = query[index + 1];
+    if (quote) {
+      if (char === quote) {
+        if (next === quote && quote !== ']') index += 1;
+        else quote = null;
+      }
+      continue;
+    }
+    if (char === '-' && next === '-') {
+      while (index < query.length && query[index] !== '\n') index += 1;
+      continue;
+    }
+    if (char === '/' && next === '*') {
+      index += 2;
+      while (index < query.length && !(query[index] === '*' && query[index + 1] === '/')) index += 1;
+      index += 1;
+      continue;
+    }
+    if (char === "'" || char === '"' || char === '`' || char === '[') {
+      quote = char === '[' ? ']' : char;
+      continue;
+    }
+    if (char === '(') depth += 1;
+    else if (char === ')') depth = Math.max(0, depth - 1);
+    else if (depth === 0 && /^order\s+by\b/i.test(query.slice(index)) &&
+      (index === 0 || !/[\w]/.test(query[index - 1]))) return true;
+  }
+  return false;
 }
