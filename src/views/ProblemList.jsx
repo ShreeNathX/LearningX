@@ -137,37 +137,37 @@ export function ProblemList({
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-5 sm:space-y-8 animate-fade-in">
+    <div className="w-full min-w-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-5 sm:space-y-8 animate-fade-in">
       {storageWarning && <p role="alert" className="text-xs text-amber-200 bg-amber-950/70 border border-amber-800/50 rounded-lg px-3 py-2">{storageWarning}</p>}
       
       {/* Hero Overview & Progress Cards */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+      <div className="grid w-full min-w-0 grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         
         {/* Banner Card */}
-        <div className="lg:col-span-2 glass-card rounded-2xl p-5 sm:p-8 relative overflow-hidden bg-gradient-to-r from-slate-900 via-slate-900/90 to-cyan-950/40 border border-slate-800">
-          <div className="relative z-10 space-y-3">
+        <div className="min-w-0 w-full lg:col-span-2 glass-card rounded-2xl p-4 sm:p-8 relative overflow-hidden bg-gradient-to-r from-slate-900 via-slate-900/90 to-cyan-950/40 border border-slate-800">
+          <div className="relative z-10 min-w-0 space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Job-Ready Interview Curriculum</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight break-words [overflow-wrap:anywhere]">
               Master Modern Programming, Algorithms & SQL
             </h1>
             <p className="text-sm text-slate-400 max-w-xl leading-relaxed">
               Curated interview challenges with browser execution, instant test evaluation, and offline storage.
             </p>
 
-            <div className="pt-2 flex flex-wrap items-center gap-3">
+            <div className="pt-2 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
               <button
                 onClick={pickRandomProblem}
-                className="btn-primary w-full sm:w-auto justify-center px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2"
+                className="btn-primary w-full sm:w-auto min-w-0 justify-center px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 whitespace-normal text-center"
               >
                 <Shuffle className="w-4 h-4" />
                 Practice an Essential
               </button>
               <button
                 onClick={() => setShowAnalystPrep(true)}
-                className="w-full sm:w-auto justify-center px-4 py-2.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-200 hover:bg-emerald-500/15 text-xs font-semibold flex items-center gap-2"
+                className="w-full sm:w-auto min-w-0 justify-center px-4 py-2.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-200 hover:bg-emerald-500/15 text-xs font-semibold flex items-center gap-2 whitespace-normal text-center"
               >
                 <BriefcaseBusiness className="w-4 h-4" />
                 Data Analyst Interview Prep
@@ -181,16 +181,16 @@ export function ProblemList({
         </div>
 
         {/* Stats Progress Card */}
-        <div className="glass-card rounded-2xl p-5 sm:p-6 border border-slate-800 flex flex-col justify-between space-y-4">
+        <div className="w-full min-w-0 glass-card rounded-2xl p-4 sm:p-6 border border-slate-800 flex flex-col justify-between space-y-4">
           <div>
             <span className="text-xs font-semibold uppercase text-slate-400 tracking-wider">
               Preparation Progress
             </span>
-            <div className="mt-2 flex items-baseline justify-between">
+            <div className="mt-2 flex flex-wrap items-end justify-between gap-x-3 gap-y-1">
               <div className="text-3xl font-extrabold text-white">
                 {Math.round((solvedCount / (totalCount || 1)) * 100)}%
               </div>
-              <div className="text-xs text-slate-400 font-mono">
+              <div className="min-w-0 text-xs text-slate-400 font-mono text-right break-words">
                 {solvedCount} / {totalCount} completed
               </div>
             </div>
@@ -202,7 +202,7 @@ export function ProblemList({
                 style={{ width: `${(solvedCount / (totalCount || 1)) * 100}%` }}
               />
             </div>
-            <p className="mt-3 text-[11px] leading-relaxed text-slate-400">
+            <p className="mt-3 text-[11px] leading-relaxed text-slate-400 break-words [overflow-wrap:anywhere]">
               {remainingCount === 0
                 ? 'Curriculum complete. Revisit starred problems and practise timed mock interviews.'
                 : `${remainingCount} challenges remain. Complete every track to finish the interview-practice curriculum.`}
@@ -252,7 +252,7 @@ export function ProblemList({
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="space-y-4">
+      <div className="w-full min-w-0 space-y-4">
         
         {/* Track Pills */}
         <div className="flex items-center gap-2 overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0 pb-1 scrollbar-none">
@@ -283,7 +283,7 @@ export function ProblemList({
         </div>
 
         {/* Secondary Filter Controls */}
-        <div className="glass-card rounded-2xl p-3 sm:p-4 border border-slate-800 flex flex-col items-stretch justify-between gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+        <div className="w-full min-w-0 glass-card rounded-2xl p-3 sm:p-4 border border-slate-800 flex flex-col items-stretch justify-between gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
           
           {/* Search Box */}
           <div className="relative w-full flex-1 min-w-0 sm:min-w-[240px]">
@@ -298,7 +298,7 @@ export function ProblemList({
           </div>
 
           {/* Filter Dropdowns */}
-          <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center sm:gap-2.5">
+          <div className="grid min-w-0 grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center sm:gap-2.5">
             
             {/* Difficulty Selector */}
             <select
@@ -378,7 +378,7 @@ export function ProblemList({
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-2.5">
+          <div className="grid w-full min-w-0 grid-cols-1 gap-2.5">
             {filteredQuestions.map((q, idx) => {
               const isSolved = solvedSet.has(q.id);
               const isStarred = starredSet.has(q.id);
@@ -386,7 +386,7 @@ export function ProblemList({
               return (
                 <div
                   key={q.id}
-                  className="glass-card relative rounded-xl p-3.5 sm:p-4 border border-slate-800/80 hover:border-cyan-500/40 flex items-center justify-between gap-2 sm:gap-4 group transition-all"
+                  className="glass-card relative w-full min-w-0 rounded-xl p-3 sm:p-4 border border-slate-800/80 hover:border-cyan-500/40 flex items-center justify-between gap-2 sm:gap-4 group transition-all"
                 >
                   <button
                     type="button"

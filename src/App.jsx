@@ -90,7 +90,7 @@ export function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-cyan-500/20 selection:text-cyan-300">
+    <div className="min-h-screen w-full min-w-0 bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-cyan-500/20 selection:text-cyan-300">
       {/* Top Navbar */}
       <Navbar
         userData={userData}
@@ -100,7 +100,7 @@ export function App() {
       />
 
       {/* Main View Area */}
-      <main className="flex-1 flex flex-col">
+      <main className="flex-1 flex flex-col w-full min-w-0">
         <Suspense
           fallback={
             <div className="flex-1 flex items-center justify-center text-slate-400 text-sm gap-2">

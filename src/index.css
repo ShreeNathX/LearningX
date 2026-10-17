@@ -28,6 +28,13 @@
   padding: 0;
 }
 
+html,
+body,
+#root {
+  width: 100%;
+  min-width: 0;
+}
+
 body {
   background-color: var(--bg-primary);
   color: var(--text-main);
@@ -229,6 +236,9 @@ code, pre, .font-mono {
   }
 
   .split-pane-mobile {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     height: auto !important;
     min-height: 0;
     flex-direction: column;
@@ -238,6 +248,8 @@ code, pre, .font-mono {
   .split-pane-mobile > .split-pane-primary,
   .split-pane-mobile > .split-pane-secondary {
     width: 100% !important;
+    max-width: 100%;
+    min-width: 0;
     height: auto !important;
     flex: none;
     overflow: visible;
@@ -304,6 +316,16 @@ code, pre, .font-mono {
     height: 24rem !important;
     flex: none;
   }
+}
+
+/* Keep nested app panes from imposing their content width on the viewport. */
+.split-pane,
+.split-pane-primary,
+.split-pane-secondary,
+.problem-editor-panel,
+.problem-code-workspace {
+  min-width: 0;
+  max-width: 100%;
 }
 
 @media (max-width: 767px) {
