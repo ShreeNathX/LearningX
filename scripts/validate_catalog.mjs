@@ -1,4 +1,5 @@
 import { allQuestions } from '../src/data/allQuestions.js';
+import { dataAnalystQuestions } from '../src/data/dataAnalystQuestions.js';
 import { TOPIC_TAGS } from '../src/data/categories.js';
 
 const errors = [];
@@ -53,9 +54,26 @@ for (const question of allQuestions) {
   }
 }
 
+const analystSqlCount = allQuestions.filter((question) => question.analystPrep).length;
+const analystQuestionIds = new Set();
+for (const question of dataAnalystQuestions) {
+  if (!question.id || !question.category || !question.title || !question.prompt || !question.answer || !question.followUp) {
+    errors.push('Each data analyst interview prompt needs an id, category, title, prompt, answer, and follow-up.');
+    continue;
+  }
+  if (seenIds.has(question.id) || analystQuestionIds.has(question.id)) {
+    errors.push(`${question.id}: data analyst question IDs must be unique.`);
+  }
+  analystQuestionIds.add(question.id);
+}
+
+if (analystSqlCount + dataAnalystQuestions.length < 50) {
+  errors.push(`Data Analyst Interview Prep needs at least 50 questions; found ${analystSqlCount + dataAnalystQuestions.length}.`);
+}
+
 if (errors.length) {
   console.error(`Catalog validation failed:\n- ${errors.join('\n- ')}`);
   process.exit(1);
 }
 
-console.log(`Catalog valid: ${allQuestions.length} browser-ready challenges.`);
+console.log(`Catalog valid: ${allQuestions.length} browser-ready challenges and ${analystSqlCount + dataAnalystQuestions.length} data analyst interview questions.`);

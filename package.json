@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "npm run validate && vite build",
     "validate": "node scripts/validate_catalog.mjs",
+    "test:analyst-sql": "node scripts/test_analyst_sql.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

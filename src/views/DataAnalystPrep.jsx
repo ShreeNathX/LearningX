@@ -13,6 +13,7 @@ export function DataAnalystPrep({ userData, sqlQuestions, onBack, onSelectProble
   const status = userData.analystStatus || {};
   const reviewCount = Object.values(status).filter((value) => value === 'review').length;
   const knownCount = Object.values(status).filter((value) => value === 'known').length;
+  const totalQuestionCount = dataAnalystQuestions.length + sqlQuestions.length;
 
   const questions = useMemo(() => dataAnalystQuestions.filter((question) =>
     (category === 'All' || question.category === category) &&
@@ -47,7 +48,8 @@ export function DataAnalystPrep({ userData, sqlQuestions, onBack, onSelectProble
             </p>
           </div>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-3">
+          <Stat label="Total questions" value={totalQuestionCount} />
           <Stat label="Interview prompts" value={dataAnalystQuestions.length} />
           <Stat label="SQL challenges" value={sqlQuestions.length} />
           <Stat label="Know it" value={knownCount} />

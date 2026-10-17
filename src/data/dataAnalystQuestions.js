@@ -126,6 +126,78 @@ export const dataAnalystQuestions = [
     followUp: 'How would you distinguish a sustainable mix change from a one-off event?'
   },
   {
+    id: 'da-sql-funnel-dedup', category: 'SQL', title: 'Build a funnel with repeated events',
+    prompt: 'An event table can contain many visits and purchases per user. How would you calculate unique-user conversion for each funnel step?',
+    answer: 'Define the funnel order and time window first. Reduce each user to whether they reached each step (and, if required, the first timestamp for each step), then count distinct users by stage. Check that later stages occur after earlier stages and use the same eligible-user denominator throughout.',
+    followUp: 'How would the result change if users can enter the funnel at different steps?'
+  },
+  {
+    id: 'da-sql-dates', category: 'SQL', title: 'Handle date ranges and time zones',
+    prompt: 'A daily report is missing late-night events and sometimes double-counts events near midnight. What would you check?',
+    answer: 'Confirm the timestamp time zone, convert events to the agreed reporting zone before deriving the date, and use a half-open filter (start inclusive, next-day start exclusive). Check timestamp precision, daylight-saving transitions, and whether the source stores UTC or local time.',
+    followUp: 'Why can a filter using BETWEEN on two dates miss timestamp values on the end date?'
+  },
+  {
+    id: 'da-sql-reconciliation', category: 'SQL', title: 'Reconcile a query to a trusted total',
+    prompt: 'Your query returns revenue that differs from the finance dashboard. How do you find the cause?',
+    answer: 'Align metric definitions and date boundaries first, then compare at a small shared grain such as day and region. Check cancelled orders, refunds, currency, duplicate keys, join cardinality, NULL handling, and refresh times. Reconcile each transformation step and document the agreed definition.',
+    followUp: 'What would you do if finance and product intentionally use different revenue definitions?'
+  },
+  {
+    id: 'da-excel-powerquery', category: 'Excel', title: 'Choose Power Query or worksheet formulas',
+    prompt: 'A weekly report requires combining and cleaning several files. Would you use formulas or Power Query?',
+    answer: 'Use Power Query for repeatable import, append, merge, type conversion, and cleanup steps, then refresh when new files arrive. Use worksheet formulas for transparent calculations or interactive analysis on the prepared data. Keep raw inputs unchanged and validate row counts and totals after refresh.',
+    followUp: 'How would you handle a new column appearing in one weekly file?'
+  },
+  {
+    id: 'da-excel-errors', category: 'Excel', title: 'Debug a spreadsheet total that looks wrong',
+    prompt: 'A SUMIFS total is lower than expected. What checks would you make before changing the formula?',
+    answer: 'Check that amount cells are numeric, dates are real dates, criteria match hidden spaces or inconsistent labels, and all criteria ranges have the same shape. Test the date boundaries with a few known rows, look for duplicate or missing records, and compare the filtered row count with the total.',
+    followUp: 'When can wrapping the formula in IFERROR hide a data problem?'
+  },
+  {
+    id: 'da-stats-confidence', category: 'Statistics', title: 'Explain a confidence interval',
+    prompt: 'A conversion estimate is 8% with a 95% confidence interval from 7% to 9%. How would you explain it?',
+    answer: 'Describe 8% as the sample estimate and 7–9% as a range of values reasonably compatible with the data under the method’s assumptions. In repeated comparable studies, 95% of intervals constructed this way would contain the true parameter. The interval does not mean there is a 95% probability this specific fixed parameter lies inside it.',
+    followUp: 'What happens to the interval width when the sample size increases?'
+  },
+  {
+    id: 'da-stats-sampling', category: 'Statistics', title: 'Spot selection bias in a survey',
+    prompt: 'A customer survey reports very high satisfaction, but response rates are low. How would you assess whether it is representative?',
+    answer: 'Compare respondents with the full customer population on available traits such as tenure, region, channel, and activity. Check who was invited, who responded, and whether response differs across groups. Weighting may help observed imbalances, but it cannot fix unmeasured differences; report limitations and consider follow-up sampling.',
+    followUp: 'Why does a larger sample not automatically remove selection bias?'
+  },
+  {
+    id: 'da-powerbi-relationships', category: 'Power BI', title: 'Diagnose an ambiguous relationship',
+    prompt: 'A Power BI model has several many-to-many relationships and totals change when a slicer is used. What would you inspect?',
+    answer: 'Confirm the grain and uniqueness of each key, then prefer dimension tables with unique keys and one-to-many relationships to facts. Inspect filter direction, inactive relationships, duplicate dimension keys, and measures that depend on ambiguous paths. Verify totals at row, category, and grand-total levels.',
+    followUp: 'When is a bridge table a better option than a direct many-to-many relationship?'
+  },
+  {
+    id: 'da-powerbi-time', category: 'Power BI', title: 'Make time comparisons reliable',
+    prompt: 'A year-over-year Power BI measure returns unexpected values for the current month. What would you validate?',
+    answer: 'Use a complete, unique Date table marked as the date table and relate it to the fact date. Confirm the measure’s filter context, whether the current month is partial, and how missing dates are handled. Compare the result to a small table of dates and base values before trusting a visual.',
+    followUp: 'How would you distinguish year-to-date from same-period-last-year comparisons?'
+  },
+  {
+    id: 'da-python-outliers', category: 'Python / Pandas', title: 'Investigate extreme values',
+    prompt: 'A few unusually large order values dominate your summary. How would you handle them in Pandas?',
+    answer: 'Check source records, units, duplicates, and business rules before labeling values as errors. Compare distributions and robust statistics, retain valid high-value orders, and use a documented correction or exclusion rule only when evidence supports it. Show how the conclusion changes with and without influential values.',
+    followUp: 'Why is automatically removing every value beyond three standard deviations risky?'
+  },
+  {
+    id: 'da-python-validation', category: 'Python / Pandas', title: 'Make an analysis reproducible',
+    prompt: 'A notebook produces a report that another analyst cannot reproduce. What would you improve?',
+    answer: 'Make inputs and date ranges explicit, pin or record dependencies, keep transformations in a clear order, and avoid hidden state from out-of-order notebook execution. Add assertions for expected columns, key uniqueness, row counts, null rates, and reconciled totals. Save the output and document assumptions.',
+    followUp: 'Which checks should stop the report from being published?'
+  },
+  {
+    id: 'da-case-prioritize', category: 'Business case', title: 'Prioritize competing stakeholder requests',
+    prompt: 'Two teams need urgent analysis, but you can only complete one today. How would you decide what to do first?',
+    answer: 'Clarify the decision and deadline for each request, expected impact, risk of delay, dependencies, and effort. Agree on priority with the stakeholders or manager, communicate what can be delivered now, and offer a smaller interim answer if it is reliable. Record the trade-off and next delivery time.',
+    followUp: 'What would you do if both requests are tied to a critical business decision?'
+  },
+  {
     id: 'da-project', category: 'Project discussion', title: 'Present an analytics project clearly',
     prompt: 'Give a concise structure for explaining an analytics project you personally completed.',
     answer: 'State the business problem and who needed the answer; describe the data and its quality limits; explain your method and why you chose it; share the result and its measurable impact; then explain what you owned, what you would improve, and how the work was validated. Be precise about your contribution.',
